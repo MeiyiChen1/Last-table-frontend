@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import SignUpForm from "@/components/SignUpForm";
+import SignUpForm from "@/components/signup-form";
 
 const formStyle = StyleSheet.create({
   alignment: {
@@ -8,7 +8,7 @@ const formStyle = StyleSheet.create({
 });
 
 function UserSignUpPage() {
-  return <SignUpForm style={formStyle.alignment} />;
+  return <SignUpForm />;
 }
 
 export default UserSignUpPage;
