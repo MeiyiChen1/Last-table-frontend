@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { getReservations } from "../api";
 
 interface UserProfile {
   name: string;
@@ -7,10 +8,10 @@ interface UserProfile {
   avatarUrl: string;
 }
 interface Reservation {
-  restaurantName: string;
-  restaurantType: string;
-  guests: number;
-  bookingTime: string;
+  restaurant_name: string;
+  restaurant_type: string;
+  available_seats: number;
+  time: string;
 }
 
 const user: UserProfile = {
@@ -19,22 +20,34 @@ const user: UserProfile = {
   avatarUrl: "https://i.pravatar.cc/150?img=31",
 };
 
-const reservations: Reservation[] = [
-  {
-    restaurantName: "Wagamama",
-    restaurantType: "Japanese",
-    guests: 2,
-    bookingTime: "June 10, 2025, 18:00",
-  },
-  {
-    restaurantName: "Bella Italia",
-    restaurantType: "Italian",
-    guests: 4,
-    bookingTime: "June 15, 2025, 12:30",
-  },
-];
+// const reservations: Reservation[] = [
+//   {
+//     restaurantName: "Wagamama",
+//     restaurantType: "Japanese",
+//     guests: 2,
+//     bookingTime: "June 10, 2025, 18:00",
+//   },
+//   {
+//     restaurantName: "Bella Italia",
+//     restaurantType: "Italian",
+//     guests: 4,
+//     bookingTime: "June 15, 2025, 12:30",
+//   },
+// ];
 
 export default function UserProfile() {
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+
+  useEffect(() => {
+    getReservations()
+      .then((data) => {
+        setReservations(data);
+      })
+      .catch((error) => {
+        console.log("Failed to fetch reservations:", error);
+      });
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>User Profile</Text>
@@ -42,20 +55,13 @@ export default function UserProfile() {
       <Text style={styles.name}>{user.name}</Text>
       <Text style={styles.email}>{user.email}</Text>
       <Text style={styles.sectionTitle}>Reservations Booked</Text>
+
       {reservations.map((res, index) => (
         <View key={index} style={styles.reservationCard}>
-          <Text>
-            <Text>Restaurant:</Text> {res.restaurantName}
-          </Text>
-          <Text>
-            <Text>Type:</Text> {res.restaurantType}
-          </Text>
-          <Text>
-            <Text>Guests:</Text> {res.guests}
-          </Text>
-          <Text>
-            <Text>Time:</Text> {res.bookingTime}
-          </Text>
+          <Text>Restaurant: {res.restaurant_name}</Text>
+          <Text>Type: {res.restaurant_type}</Text>
+          <Text>Guests: {res.available_seats}</Text>
+          <Text>Time: {res.time}</Text>
         </View>
       ))}
     </ScrollView>
