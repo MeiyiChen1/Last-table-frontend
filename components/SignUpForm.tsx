@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-
-// const { control, handleSubmit } = useForm();
-// console.log(control, handleSubmit);
+import { postUsers } from "../api";
 
 //setLoading state
-
-//prevent submit after click
 
 const styles = StyleSheet.create({
   input: {
@@ -34,61 +30,44 @@ const styles = StyleSheet.create({
 });
 
 function SignUpForm() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setusername] = useState("");
+  const [icon_url, setIcon_url] = useState("");
+  const [favourites, setfavourites] = useState("");
 
-  const handleSubmit = () => {};
-
-  const handleFirstName = (value: string) => {
-    setFirstName(firstName);
-    setLastName(lastName);
-    setEmail(email);
+  const handleSubmit = () => {
+    postUsers(username, icon_url, favourites);
   };
-
+  console.log(username, icon_url, favourites);
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.heading}>Make an Account</Text>
-        <Text>First Name </Text>
+        <Text>Username:</Text>
         <TextInput
           style={styles.input}
-          value={firstName}
+          value={username}
           onChangeText={(value) => {
-            setFirstName(value);
+            setusername(value);
           }}
         ></TextInput>
-        <Text>Last Name</Text>
+        <Text>Icon URL:</Text>
         <TextInput
           style={styles.input}
-          value={lastName}
+          value={icon_url}
           onChangeText={(value) => {
-            setLastName(value);
+            setIcon_url(value);
           }}
         ></TextInput>
-        <Text>Email Address</Text>
+        <Text>Favourites:</Text>
         <TextInput
           style={styles.input}
-          value={email}
+          value={favourites}
           onChangeText={(value) => {
-            setEmail(value);
+            setfavourites(value);
           }}
         ></TextInput>
         <Button title="Submit" onPress={handleSubmit}></Button>
       </View>
-
-      {/* <div>
-        <form>
-          <label htmlFor="first-name">First Name</label>
-          <input type="text" name="first-name"></input>
-          <label htmlFor="last-name">Last Name</label>
-          <input type="text" name="last-name"></input>
-          <label htmlFor="email">Email Address</label>
-          <input type="text" name="email"></input>
-
-          <button type="submit">Submit</button>
-        </form>
-      </div> */}
     </>
   );
 }
