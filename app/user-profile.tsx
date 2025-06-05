@@ -56,12 +56,38 @@ export default function UserProfile() {
       <Text style={styles.email}>{user.email}</Text>
       <Text style={styles.sectionTitle}>Reservations Booked</Text>
 
+      {/* use dummy data initially for testing layout and style */}
+      {/* {reservations.map((res, index) => (
+        <View key={index} style={styles.reservationCard}>
+          <Text style={styles.text}>
+            <Text style={styles.label}>Restaurant:</Text> {res.restaurant_name}
+          </Text>
+          <Text>
+            <Text style={styles.label}>Type:</Text> {res.restaurant_type}
+          </Text>
+          <Text>
+            <Text style={styles.label}>Guests:</Text> {res.available_seats}
+          </Text>
+          <Text>
+            <Text style={styles.label}>Time:</Text> {res.time}
+          </Text>
+        </View>
+      ))} */}
+      {/* connect to backend api */}
       {reservations.map((res, index) => (
         <View key={index} style={styles.reservationCard}>
-          <Text>Restaurant: {res.restaurant_name}</Text>
-          <Text>Type: {res.restaurant_type}</Text>
-          <Text>Guests: {res.available_seats}</Text>
-          <Text>Time: {res.time}</Text>
+          <Text style={styles.text}>
+            <Text style={styles.label}>Restaurant:</Text> {res.restaurant_name}
+          </Text>
+          <Text>
+            <Text style={styles.label}>Type:</Text> {res.restaurant_type}
+          </Text>
+          <Text>
+            <Text style={styles.label}>Guests:</Text> {res.available_seats}
+          </Text>
+          <Text>
+            <Text style={styles.label}>Time:</Text> {res.time}
+          </Text>
         </View>
       ))}
     </ScrollView>
@@ -104,5 +130,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "black",
+  },
+  text: {
+    fontSize: 16,
+    color: "#444",
+    marginBottom: 5,
   },
 });
