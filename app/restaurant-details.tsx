@@ -2,6 +2,7 @@ import { getVendorById } from "@/api";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, Text } from "react-native";
 import RestaurantInfo from "../components/restaurant-info";
+import { useRoute } from "@react-navigation/native";
 
 interface Vendor {
   username: string;
@@ -12,7 +13,8 @@ interface Vendor {
 }
 
 export default function RestaurantDetails({ route }: { route: any }) {
-  const vendor_id = "10OsbkUu9p3TZORGS1tt";
+  const params = useRoute();
+  const { id: vendor_id } = params.params as { id: string };
   const [vendor, setVendor] = useState<Vendor | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
