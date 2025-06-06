@@ -1,11 +1,49 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-export default function RestaurantDetails() {
+import { getVendorById } from "@/api";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, ScrollView, StyleSheet, Text } from "react-native";
+import RestaurantInfo from "../components/restaurant-info";
+
+interface Vendor {
+  username: string;
+  icon_url: string;
+  telephone_number: string;
+  location_data: string;
+  restaurant_type: string;
+}
+
+export default function RestaurantDetails({ route }: { route: any }) {
+  const vendor_id = "10OsbkUu9p3TZORGS1tt";
+  const [vendor, setVendor] = useState<Vendor | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    getVendorById(vendor_id)
+      .then((data) => {
+        setVendor(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log("Failed to fetch vendor:", err);
+        setError("Failed to load the restaurant details, try again later");
+        setLoading(false);
+      });
+  }, [vendor_id]);
+
+  if (loading)
+    return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
+  if (error) return <Text>{error}</Text>;
+  if (!vendor) return <Text>No vendor found.</Text>;
+
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Restaurant Details</Text>
+      <RestaurantInfo vendor={vendor} />
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: { alignItems: "center", marginTop: 50, padding: 20 },
+  title: { color: "black", fontWeight: "bold", fontSize: 30, marginBottom: 20 },
+});
