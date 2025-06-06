@@ -1,7 +1,6 @@
-import { Text } from "react-native"
-import { useState } from "react"
 import ReservationList from "@/components/reservation-list"
-import { ResourceSavingView } from "@react-navigation/elements"
+import { useState } from "react"
+import { Text, View } from "react-native"
 
 function Reservations() {
     
@@ -22,11 +21,12 @@ function Reservations() {
     const [reservations, setReservations] = useState<Reservations[]>([dummyObj])
 
     return (
-        <>
-        <ReservationList reservations={reservations}/>
-        </>
-    ) 
+        <View style={{ padding: 20 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reservations</Text>
+            <ReservationList reservations={reservations}/>
+        </View>
+    );
 
 }
 
-export default Reservations
+export default Reservations;
