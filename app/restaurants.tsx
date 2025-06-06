@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import RestaurantList from "@/components/restaurant-list";
 
 import SignUpForm from "@/components/signup-form";
 
@@ -8,8 +9,8 @@ const formStyle = StyleSheet.create({
   },
 });
 
-function UserSignUpPage() {
-  return <SignUpForm />;
+function RestaurantPage() {
+  return <RestaurantList />;
 }
 
-export default UserSignUpPage;
+export default RestaurantPage;
