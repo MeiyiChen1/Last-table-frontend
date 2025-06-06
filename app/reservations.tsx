@@ -1,6 +1,8 @@
+import ReservationForm from "@/components/reservation-form"
 import ReservationList from "@/components/reservation-list"
 import { useState } from "react"
 import { Text, View } from "react-native"
+
 
 function Reservations() {
     
@@ -24,6 +26,7 @@ function Reservations() {
         <View style={{ padding: 20 }}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reservations</Text>
             <ReservationList reservations={reservations}/>
+            <ReservationForm />
         </View>
     );
 
