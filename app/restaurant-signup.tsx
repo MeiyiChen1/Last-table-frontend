@@ -1,6 +1,6 @@
+import VendorSignUpForm from "@/components/restaurant-signup-form";
 import SignUpForm from "@/components/signup-form";
 import { Text, View } from "react-native";
-
 
 export default function RestaurantSignUpPage() {
   return (
@@ -21,7 +21,7 @@ export default function RestaurantSignUpPage() {
       >
         Restaurant Sign Up
       </Text>
-      <SignUpForm />
+      <VendorSignUpForm />
     </View>
   );
 }
