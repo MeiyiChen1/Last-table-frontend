@@ -1,5 +1,4 @@
 import SearchComponent from "@/components/searchComponent";
-import { useState } from "react";
 import { Text, View } from "react-native";
 import ReservationForm from "@/components/reservation-form"
 import ReservationList from "@/components/reservation-list"
