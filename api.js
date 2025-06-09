@@ -22,6 +22,12 @@ export const getReservations = () => {
   });
 };
 
+export const getReservationById = (id) => {
+  return lastTableApi.get(`/reservations/${id}`).then((res) => {
+    return res.data;
+  });
+};
+
 export const postVendor = (
   username,
   icon_url,

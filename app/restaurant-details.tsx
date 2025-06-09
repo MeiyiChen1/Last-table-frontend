@@ -1,9 +1,9 @@
 import { getVendorById } from "@/api";
+import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, Text } from "react-native";
 import RestaurantInfo from "../components/restaurant-info";
 import RestaurantReservations from "@/components/restaurant-reservations";
-import { useRoute } from "@react-navigation/native";
 
 interface Vendor {
   username: string;
@@ -11,6 +11,7 @@ interface Vendor {
   telephone_number: string;
   location_data: string;
   restaurant_type: string;
+  //description: need update the backend
 }
 
 export default function RestaurantDetails({ route }: { route: any }) {
