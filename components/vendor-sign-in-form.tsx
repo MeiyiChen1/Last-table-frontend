@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { postUsers, getVendors } from "../api";
 import DropDownPicker from "react-native-dropdown-picker";
 import { VendorLogInContext } from "@/Contexts";
+import { Link } from "@react-navigation/native";
 
 //setLoading state
 
@@ -75,6 +76,9 @@ function VendorSignInForm({}) {
           setValue={setValue}
           setItems={setItems}
         />
+        <Link screen="restaurant-signup" params={{}}>
+          <Text>Or Create an Account:</Text>
+        </Link>
         {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
       </View>
     </>

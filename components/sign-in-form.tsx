@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { postUsers, getUsers } from "../api";
 import DropDownPicker from "react-native-dropdown-picker";
 import { LogInContext } from "@/Contexts";
+import { Link } from "@react-navigation/native";
 
 //setLoading state
 
@@ -76,7 +77,12 @@ function SignInForm({}) {
           setItems={setItems}
         />
         {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
+        <Link screen="user-signup-page" params={{}}>
+          <Text>Or Create an Account:</Text>
+        </Link>
       </View>
+
+      {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
     </>
   );
 }
