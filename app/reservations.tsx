@@ -1,7 +1,9 @@
+import SearchComponent from "@/components/searchComponent";
+import { useState } from "react";
+import { Text, View } from "react-native";
 import ReservationForm from "@/components/reservation-form"
 import ReservationList from "@/components/reservation-list"
 import { useEffect, useState } from "react"
-import { Text, View } from "react-native"
 import { getReservations } from "@/api"
 
 function Reservations() {
@@ -37,6 +39,7 @@ function Reservations() {
     return (
         <View style={{ flex: 1, padding: 20 }}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reservations</Text>
+            <SearchComponent />
             <ReservationList reservations={reservations}/>
             <ReservationForm />
         </View>

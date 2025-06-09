@@ -1,13 +1,15 @@
-import { View } from "react-native";
+import { Text, View } from "react-native";
 
 export default function Index() {
-  return (
-    <View
-      style={{
+  return (    
+    <View style={{
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-      }}
-    ></View>
+      }}>
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+        Welcome!
+      </Text>
+     </View>
   );
 }
