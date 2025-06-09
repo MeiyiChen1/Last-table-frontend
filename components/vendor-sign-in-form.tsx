@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { postUsers, getUsers } from "../api";
+import { postUsers, getVendors } from "../api";
 import DropDownPicker from "react-native-dropdown-picker";
-import { LogInContext } from "@/Contexts";
+import { VendorLogInContext } from "@/Contexts";
 
 //setLoading state
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function SignInForm({}) {
+function VendorSignInForm({}) {
   const [username, setusername] = useState("");
   //loggedInUser state
 
@@ -39,29 +39,29 @@ function SignInForm({}) {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState<{ label: string; value: string }[]>([]);
 
-  const logInContext = useContext(LogInContext);
+  const vendorLogInContext = useContext(VendorLogInContext);
 
-  if (!logInContext) {
+  if (!vendorLogInContext) {
     return <Text>hi</Text>;
   }
 
-  const { signedInUser, setSignedInUser } = logInContext;
+  const { signedInVendor, setSignedInVendor } = vendorLogInContext;
 
   useEffect(() => {
-    getUsers().then((result) => {
+    getVendors().then((result) => {
       console.log(result);
-      const userMap = result.users.map((user: any) => {
+      const vendorMap = result.map((vendor: any) => {
         return {
-          label: user.username,
-          value: user.id,
+          label: vendor.username,
+          value: vendor.id,
         };
       });
-      setItems(userMap);
+      setItems(vendorMap);
     });
   }, []);
 
-  setSignedInUser(value);
-  console.log(signedInUser);
+  setSignedInVendor(value);
+  console.log(signedInVendor, "<<<<<<<<<<<<");
 
   return (
     <>
@@ -81,4 +81,4 @@ function SignInForm({}) {
   );
 }
 
-export default SignInForm;
+export default VendorSignInForm;
