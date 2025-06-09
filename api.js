@@ -25,6 +25,12 @@ export const getReservations = () => {
   });
 };
 
+export const getReservationById = (id) => {
+  return lastTableApi.get(`/reservations/${id}`).then((res) => {
+    return res.data;
+  });
+};
+
 export const postVendor = (
   username,
   icon_url,
@@ -111,5 +117,11 @@ export const getFavouritesByUserId = (id) => {
 export const deleteFavouritesByUserId = (id) => {
   return lastTableApi.delete(`/users/${id}/favourites`).then((res) => {
     return res;
+  });
+};
+
+export const getUsers = () => {
+  return lastTableApi.get("/Users").then((res) => {
+    return res.data;
   });
 };

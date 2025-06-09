@@ -43,6 +43,7 @@ function SignUpForm() {
   const [restaurant_type, setType] = useState("");
 
   const handleSubmit = () => {
+
     postVendor(username, icon_url, telephone_number, location_data, restaurant_type)
       .then(() => {
         alert("Account created successfully!");
