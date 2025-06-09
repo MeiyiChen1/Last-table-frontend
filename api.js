@@ -4,12 +4,15 @@ const lastTableApi = axios.create({
   baseURL: "http://localhost:9090/",
 });
 
-export const postUsers = (username, icon_url, favourites) => {
+export const postUsers = (username, icon_url, favourites, telephone_number, location_data, restaurant_type) => {
   return lastTableApi
     .post("/users", {
       username: username,
       icon_url: icon_url,
       favourites: favourites,
+      telephone_number,
+      location_data,
+      restaurant_type,
     })
     .then((res) => {
       return res.data;

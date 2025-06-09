@@ -1,8 +1,8 @@
-import ReservationForm from "@/components/reservation-form"
-import ReservationList from "@/components/reservation-list"
-import { useState } from "react"
-import { Text, View } from "react-native"
-
+import ReservationForm from "@/components/reservation-form";
+import ReservationList from "@/components/reservation-list";
+import SearchComponent from "@/components/searchComponent";
+import { useState } from "react";
+import { Text, View } from "react-native";
 
 function Reservations() {
     
@@ -25,6 +25,7 @@ function Reservations() {
     return (
         <View style={{ padding: 20 }}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reservations</Text>
+            <SearchComponent />
             <ReservationList reservations={reservations}/>
             <ReservationForm />
         </View>
