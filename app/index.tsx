@@ -16,6 +16,9 @@ export default function Index() {
         <Text>Hungry Customer</Text>
       </Link>
       <Text>Or a:</Text>
+      <Link screen="vendor-sign-in" params={{}}>
+        <Text>Restaurant with a last minute cancellation</Text>
+      </Link>
     </View>
   );
 }
