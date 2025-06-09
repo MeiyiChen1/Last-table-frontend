@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { postVendor } from "../api";
+import { postUsers } from "../api";
 
 const styles = StyleSheet.create({
   input: {
@@ -38,18 +38,19 @@ const styles = StyleSheet.create({
 function SignUpForm() {
   const [username, setUsername] = useState("");
   const [icon_url, setIconUrl] = useState("");
-  const [telephone_number, setPhone] = useState("");
-  const [location_data, setLocation] = useState("");
-  const [restaurant_type, setType] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = () => {
-
-    postVendor(username, icon_url, telephone_number, location_data, restaurant_type)
+    postUsers(username, icon_url, email, name)
       .then(() => {
         alert("Account created successfully!");
       })
       .catch((error) => {
-        console.error("Error creating account:", error.response?.data || error.message);
+        console.error(
+          "Error creating account:",
+          error.response?.data || error.message
+        );
         alert("Failed to create account.");
       });
   };
@@ -72,27 +73,11 @@ function SignUpForm() {
         onChangeText={setIconUrl}
       />
 
-      <Text>Phone Number:</Text>
-      <TextInput
-        style={styles.input}
-        value={telephone_number}
-        onChangeText={setPhone}
-        keyboardType="numeric"
-      />
+      <Text>email:</Text>
+      <TextInput style={styles.input} value={email} onChangeText={setEmail} />
 
-      <Text>Location:</Text>
-      <TextInput
-        style={styles.input}
-        value={location_data}
-        onChangeText={setLocation}
-      />
-
-      <Text>Restaurant Type:</Text>
-      <TextInput
-        style={styles.input}
-        value={restaurant_type}
-        onChangeText={setType}
-      />
+      <Text>Name:</Text>
+      <TextInput style={styles.input} value={name} onChangeText={setName} />
 
       <Text>Submit your details to create an account</Text>
       <Button title="Submit" onPress={handleSubmit} />
