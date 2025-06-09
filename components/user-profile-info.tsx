@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 interface UserProfile {
   name: string;
   email: string;
-  avatarUrl: string;
+  icon_url: string;
 }
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 export default function UserProfileInfo({ user }: Props) {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: user.avatarUrl }} style={styles.avatar} />
+      <Image source={{ uri: user.icon_url }} style={styles.avatar} />
       <Text style={styles.name}>{user.name}</Text>
       <Text style={styles.email}>{user.email}</Text>
     </View>

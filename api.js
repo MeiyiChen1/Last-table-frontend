@@ -118,3 +118,8 @@ export const getUsers = () => {
     return res.data;
   });
 };
+
+export const getUser = (user_id) => {
+  return lastTableApi.get(`/users/${user_id}`)
+  .then(res => res.data)
+}

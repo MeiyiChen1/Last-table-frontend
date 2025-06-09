@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
-import { getReservations } from "../api";
 import UserProfileInfo from "../components/user-profile-info";
 import UserProfileReservations from "../components/user-profile-reservation";
-const user = {
-  name: "Alisha",
-  email: "alisha@example.com",
-  avatarUrl: "https://i.pravatar.cc/150?img=31",
-};
+import { LogInContext } from "@/Contexts";
+import { getUser, getReservationById} from "../api";
 
 interface Reservation {
   restaurant_name: string;
@@ -16,16 +12,49 @@ interface Reservation {
   time: string;
 }
 
+type User = {
+  name: string,
+  email: string,
+  icon_url: string,
+  username: string,
+}
+
 export default function UserProfile() {
+
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const logInContext = useContext(LogInContext);
+
+  if (!logInContext) {
+    return <Text>hi</Text>;
+  }
+
+  const [user, setUser] = useState<User>({
+    name: "test",
+    email: "test",
+    icon_url: "test",
+    username: "test"
+  })
+  
+  const { signedInUser, setSignedInUser } = logInContext;
+  console.log(signedInUser, "signed in user")
 
   useEffect(() => {
-    getReservations()
-      .then((data) => {
-        setReservations(data.reservations);
-      })
-      .catch(console.error);
-  }, []);
+
+    if (!signedInUser) {
+
+    } else {
+      getUser(signedInUser)
+    .then(result => {
+      console.log(result)
+      setUser(result.user)
+      getReservationById(signedInUser)
+      .then(result => setReservations(result.reservations))
+      .catch(err => console.log(err))
+    })
+    }
+  }, [signedInUser])
+
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>User Profile</Text>
