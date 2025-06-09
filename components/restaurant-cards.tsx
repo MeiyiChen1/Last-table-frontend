@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 // import { RestaurantProps } from "./restaurant-list";
 import { postFavouritesByUserId, getVendors, getVendorById } from "../api";
 import { Link } from "@react-navigation/native";
+import { LogInContext } from "@/Contexts";
 
 export type RestaurantProps = {
   icon_url: string;
@@ -33,31 +34,26 @@ const styles = StyleSheet.create({
   },
 });
 
-// function handleFavourite(id: string) {
-//   getVendorById(id).then((result) => {
-//     // console.log(result);
-//     const {
-//       username,
-//       icon_url,
-//       telephone_number,
-//       location_data,
-//       restaurant_type,
-//     } = result;
-//     postFavouritesByUserId(
-//       username,
-//       icon_url,
-//       telephone_number,
-//       location_data,
-//       restaurant_type
-//     ).then((result) => {
-//       console.log(result);
-//     });
-//   });
-// }
-
 //we need to implement this functionality after we have created some useState for the user.
 
 function RestaurantCards(props: RestaurantProps) {
+  const logInContext = useContext(LogInContext);
+  if (!logInContext) {
+    return <Text>hi</Text>;
+  }
+  const { signedInUser, setSignedInUser } = logInContext;
+  console.log(signedInUser);
+
+  function handleFavourite(id: string) {
+    getVendorById(id).then((result) => {
+      console.log(result);
+
+      postFavouritesByUserId(signedInUser, result).then((result) => {
+        console.log(result);
+      });
+    });
+  }
+
   return (
     <View style={styles.container}>
       <Link screen="restaurant-details" params={{ id: props.id }}>
@@ -66,13 +62,13 @@ function RestaurantCards(props: RestaurantProps) {
           <Text>{props.username}</Text>
           <Text>{props.restaurant_type}</Text>
         </View>
-        {/* <Button
-          title="Favourite"
-          onPress={() => {
-            handleFavourite(props.id);
-          }}
-        ></Button> */}
       </Link>
+      <Button
+        title="Favourite"
+        onPress={() => {
+          handleFavourite(props.id);
+        }}
+      ></Button>
     </View>
   );
 }
