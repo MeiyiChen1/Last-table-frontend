@@ -35,7 +35,9 @@ function SignUpForm() {
   const [favourites, setfavourites] = useState("");
 
   const handleSubmit = () => {
-    postUsers(username, icon_url, favourites);
+    postUsers(username, icon_url, favourites)
+    .then(() => alert("Successfully posted user"))
+    .catch(() => alert("Something went wrong..."))
   };
   console.log(username, icon_url, favourites);
   return (
