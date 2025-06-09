@@ -81,21 +81,14 @@ export const postReservations = (
     });
 };
 
-export const postFavouritesByUserId = (
-  id,
-  username,
-  icon_url,
-  telephone_number,
-  location_data,
-  restaurant_type
-) => {
+export const postFavouritesByUserId = (id, restaurantObj) => {
   return lastTableApi
     .post(`/users/${id}/favourites`, {
-      username: username,
-      icon_url: icon_url,
-      telephone_number: telephone_number,
-      location_data: location_data,
-      restaurant_type: restaurant_type,
+      username: restaurantObj.username,
+      icon_url: restaurantObj.icon_url,
+      telephone_number: restaurantObj.telephone_number,
+      location_data: restaurantObj.location_data,
+      restaurant_type: restaurantObj.restaurant_type,
     })
     .then((res) => {
       return res.data;

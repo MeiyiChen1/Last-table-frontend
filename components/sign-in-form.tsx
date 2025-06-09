@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { postUsers, getUsers } from "../api";
 import DropDownPicker from "react-native-dropdown-picker";
+import { LogInContext } from "@/Contexts";
 
 //setLoading state
 
@@ -30,18 +31,25 @@ const styles = StyleSheet.create({
   },
 });
 
-function SignInForm() {
+function SignInForm({}) {
   const [username, setusername] = useState("");
   //loggedInUser state
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState<{ label: string; value: string }[]>([]);
-  const [loggedInUser, setLoggedInUser] = useState(false);
+
+  const logInContext = useContext(LogInContext);
+
+  if (!logInContext) {
+    return <Text>hi</Text>;
+  }
+
+  const { signedInUser, setSignedInUser } = logInContext;
 
   useEffect(() => {
     getUsers().then((result) => {
-      console.log(result.users);
+      console.log(result);
       const userMap = result.users.map((user: any) => {
         return {
           label: user.username,
@@ -55,10 +63,13 @@ function SignInForm() {
   //can just use the variable 'value' as the loggedInUser state????
   //do I need a useContext now to use this state in the favourite button feature????????
 
-  console.log(value);
+  setSignedInUser(value);
+  console.log(signedInUser);
+
   return (
     <>
       <View style={styles.container}>
+        <Text>Select your username:</Text>
         <DropDownPicker
           open={open}
           value={value}
