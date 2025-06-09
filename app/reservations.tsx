@@ -1,12 +1,13 @@
 import ReservationForm from "@/components/reservation-form"
 import ReservationList from "@/components/reservation-list"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Text, View } from "react-native"
-
+import { getReservations } from "@/api"
 
 function Reservations() {
     
     type Reservations = {
+        id: string,
         time: string,
         available_seats: number,
         restaurant_name: string,
@@ -22,8 +23,19 @@ function Reservations() {
     
     const [reservations, setReservations] = useState<Reservations[]>([dummyObj])
 
+    useEffect(() => {
+        getReservations()
+        .then(reservationsData => {
+            console.log(reservationsData)
+            setReservations(reservationsData.reservations)})
+        .catch(err => console.log(err))
+    }, [])
+
+
+
+
     return (
-        <View style={{ padding: 20 }}>
+        <View style={{ flex: 1, padding: 20 }}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reservations</Text>
             <ReservationList reservations={reservations}/>
             <ReservationForm />

@@ -1,8 +1,9 @@
 import ReservationCard from "./reservation-card"
-import { View } from "react-native"
+import { ScrollView, View } from "react-native"
 
 
 type Reservation = {
+    id: string,
     time: string,
     available_seats: number,
     restaurant_name: string,
@@ -16,11 +17,15 @@ type ReservationListProps = {
 export default function ReservationList(props: ReservationListProps) {
     return (
         <>
-        <View>
+        <ScrollView contentContainerStyle={{ paddingBottom: 40}}>
+            <View>
         {props.reservations.map(reservation => {
-            return <ReservationCard reservation={reservation}/>
+            return <ReservationCard 
+            key={reservation.id}
+            reservation={reservation}/>
         })}
         </View>
+        </ScrollView>
         </>
     )
 }
