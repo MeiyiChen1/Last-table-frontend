@@ -3,6 +3,7 @@ import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, Text } from "react-native";
 import RestaurantInfo from "../components/restaurant-info";
+import RestaurantReservations from "@/components/restaurant-reservations";
 
 interface Vendor {
   username: string;
@@ -42,6 +43,7 @@ export default function RestaurantDetails({ route }: { route: any }) {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Restaurant Details</Text>
       <RestaurantInfo vendor={vendor} />
+      <RestaurantReservations vendor={vendor}/>
     </ScrollView>
   );
 }
