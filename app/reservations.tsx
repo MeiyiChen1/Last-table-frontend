@@ -15,6 +15,7 @@ function Reservations() {
   };
 
   const dummyObj = {
+    id: "cheese",
     time: "7:30",
     available_seats: 2,
     restaurant_name: "mcdonalds",

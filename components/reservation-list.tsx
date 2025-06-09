@@ -17,7 +17,7 @@ type ReservationListProps = {
 export default function ReservationList(props: ReservationListProps) {
     return (
         <>
-        <ScrollView contentContainerStyle={{ paddingBottom: 40}}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 10}}>
             <View>
         {props.reservations.map(reservation => {
             return <ReservationCard 
