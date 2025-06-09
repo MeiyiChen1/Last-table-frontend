@@ -1,12 +1,5 @@
-import { useState, useEffect } from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  ScrollView,
-} from "react-native";
+import { useEffect, useState } from "react";
+import { ScrollView, View } from "react-native";
 import { getVendors } from "../api";
 import RestaurantCards from "./restaurant-cards";
 export type RestaurantProps = {
