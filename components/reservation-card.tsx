@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type Reservation = {
+    id: string,
     time: string,
     available_seats: number,
     restaurant_name: string,
