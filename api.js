@@ -110,3 +110,9 @@ export const deleteFavouritesByUserId = (id) => {
     return res;
   });
 };
+
+export const getUsers = () => {
+  return lastTableApi.get("/Users").then((res) => {
+    return res.data;
+  });
+};
