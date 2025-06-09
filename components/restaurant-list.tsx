@@ -41,6 +41,7 @@ function RestaurantList() {
               id={id}
               location_data={location_data}
               telephone_number={telephone_number}
+              key={restaurant.id}
             />
           );
         })}
