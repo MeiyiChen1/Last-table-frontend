@@ -1,6 +1,7 @@
-import React from "react";
+import * as Linking from "expo-linking";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { getVendorById } from "../api";
 
 interface Reservation {
   time: string;
@@ -8,7 +9,11 @@ interface Reservation {
   restaurant_name: string;
   restaurant_type: string;
   location: string;
-  phone_number: string;
+  restaurant_id: string;
+}
+
+interface Vendor {
+  telephone_number: string;
 }
 
 interface Props {
@@ -16,20 +21,36 @@ interface Props {
 }
 
 export default function ReservationInfo({ reservation }: Props) {
+  const [vendor, setVendor] = useState<Vendor | null>(null);
+  useEffect(() => {
+    if (reservation.restaurant_id) {
+      getVendorById(reservation.restaurant_id)
+        .then((data) => setVendor(data))
+        .catch(() => Alert.alert("Failed to load restaurant contact info"));
+    }
+  }, [reservation.restaurant_id]);
+
   const handleBooking = () => {
     Alert.alert("Booking Confirmed!", "Your reservation has been booked.");
   };
 
-  const handleCall = () => {};
+  const handleCall = () => {
+    if (vendor?.telephone_number) {
+      Linking.openURL(`tel:${vendor.telephone_number}`);
+    } else {
+      Alert.alert("No phone number available");
+    }
+  };
 
-  const [latitude, longitude] = reservation.location
-    .split(", ")
-    .map((val) => parseFloat(val));
+  //MAP
+  //   const [latitude, longitude] = reservation.location
+  //     .split(", ")
+  //     .map((val) => parseFloat(val)) || [0, 0];
 
   return (
     <View style={styles.container}>
       <Text style={styles.info}>
-        <Text style={styles.label}>Restaurant:</Text>{" "}
+        <Text style={styles.label}>Restaurant:</Text>
         {reservation.restaurant_name}
       </Text>
       <Text style={styles.info}>
@@ -49,11 +70,11 @@ export default function ReservationInfo({ reservation }: Props) {
       </View>
 
       <Text style={[styles.label, { marginTop: 20 }]}>Location:</Text>
-      <MapView
+      {/* <MapView
         style={styles.map}
         region={{
-          latitude,
-          longitude,
+          latitude: latitude || 0,
+          longitude: longitude || 0,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
@@ -62,7 +83,7 @@ export default function ReservationInfo({ reservation }: Props) {
           coordinate={{ latitude, longitude }}
           title={reservation.restaurant_name}
         />
-      </MapView>
+      </MapView> */}
     </View>
   );
 }
