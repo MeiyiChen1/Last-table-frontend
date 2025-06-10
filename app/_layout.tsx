@@ -2,6 +2,8 @@ import { LogInContext, VendorLogInContext } from "@/Contexts";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
+import Tabs from "expo-router";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 export default function RootLayout() {
@@ -10,6 +12,7 @@ export default function RootLayout() {
   const [signedInVendorType, setSignedInVendorType] = useState<string | null>(
     null
   );
+
 
   useEffect(() => {
     AsyncStorage.getItem("signedInUser").then((user) => {
@@ -56,6 +59,15 @@ export default function RootLayout() {
     }
   }, [signedInVendorType]);
 
+
+
+
+
+  
+
+
+
+
   return (
     <>
     <VendorLogInContext.Provider
@@ -67,32 +79,15 @@ export default function RootLayout() {
       }}
     >
       <LogInContext.Provider value={{ signedInUser, setSignedInUser }}>
-          
+
           <Stack>
 
-           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
           <Stack.Screen name="index" options={{ title: "", headerShown: false}} />
 
-          <Stack.Screen
-            name="reservations"
-            options={{ title: "", headerShown: false}}
-          />
-          <Stack.Screen
-            name="restaurant-details"
-            options={{ title: "", headerShown: false}}
-          />
-          <Stack.Screen name="restaurants" options={{ title: "", headerShown: false}} />
-          <Stack.Screen name="sign-in" options={{ title: "", headerShown: false}} />
-          <Stack.Screen
-            name="user-profile"
-            options={{ title: "", headerShown: false }}
-          />
-          <Stack.Screen
-            name="user-signup-page"
-            options={{ title: "", headerShown: false }}
-          />
           </Stack>
+ 
       </LogInContext.Provider>
     </VendorLogInContext.Provider>
     </>
