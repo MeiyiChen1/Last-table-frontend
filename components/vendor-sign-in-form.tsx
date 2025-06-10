@@ -56,6 +56,11 @@ function VendorSignInForm({}) {
     setSignedInVendorType,
   } = vendorLogInContext;
 
+  function handleLogOut() {
+    setSignedInVendor(null);
+    setSignedInVendorType(null);
+  }
+
   useEffect(() => {
     getVendors().then((result) => {
       console.log(result);
@@ -69,8 +74,9 @@ function VendorSignInForm({}) {
       setItems(vendorMap);
     });
   }, []);
-  setSignedInVendor(value);
+
   useEffect(() => {
+    setSignedInVendor(value);
     if (value) {
       const selectedVendor = items.find((item) => item.value === value);
       if (selectedVendor) {
@@ -96,6 +102,7 @@ function VendorSignInForm({}) {
         <Link screen="restaurant-signup" params={{}}>
           <Text>Or Create an Account:</Text>
         </Link>
+        <Button title="Sign Out" onPress={handleLogOut}></Button>
         {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
       </View>
     </>
