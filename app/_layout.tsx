@@ -6,6 +6,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function RootLayout() {
   const [signedInUser, setSignedInUser] = useState<string | null>(null);
   const [signedInVendor, setSignedInVendor] = useState<string | null>(null);
+  const [signedInVendorType, setSignedInVendorType] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     AsyncStorage.getItem("signedInUser").then((user) => {
@@ -28,7 +31,7 @@ export default function RootLayout() {
     });
   }, []);
 
-  // Save signedInUser to AsyncStorage whenever it changes
+  // Save signedInVendor to AsyncStorage whenever it changes
   useEffect(() => {
     if (signedInVendor) {
       AsyncStorage.setItem("signedInVendor", signedInVendor);
@@ -37,8 +40,30 @@ export default function RootLayout() {
     }
   }, [signedInVendor]);
 
+  useEffect(() => {
+    AsyncStorage.getItem("signedInVendorType").then((user) => {
+      if (user) setSignedInVendorType(user);
+    });
+  }, []);
+
+  // Save signedInVendorType to AsyncStorage whenever it changes
+  useEffect(() => {
+    if (signedInVendorType) {
+      AsyncStorage.setItem("signedInVendorType", signedInVendorType);
+    } else {
+      AsyncStorage.removeItem("signedInVendorType");
+    }
+  }, [signedInVendorType]);
+
   return (
-    <VendorLogInContext.Provider value={{ signedInVendor, setSignedInVendor }}>
+    <VendorLogInContext.Provider
+      value={{
+        signedInVendor,
+        setSignedInVendor,
+        signedInVendorType,
+        setSignedInVendorType,
+      }}
+    >
       <LogInContext.Provider value={{ signedInUser, setSignedInUser }}>
         <Stack>
           <Stack.Screen name="index" options={{ title: "Index" }} />
