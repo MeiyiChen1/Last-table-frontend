@@ -2,10 +2,19 @@ import SearchComponent from "@/components/searchComponent";
 import { Text, View } from "react-native";
 import ReservationForm from "@/components/reservation-form";
 import ReservationList from "@/components/reservation-list";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getReservations } from "@/api";
+import { VendorLogInContext } from "@/Contexts";
 
 function Reservations() {
+  const vendorLogInContext = useContext(VendorLogInContext);
+
+  if (!vendorLogInContext) {
+    return <Text>hi</Text>;
+  }
+
+  const { signedInVendor, setSignedInVendor } = vendorLogInContext;
+
   type Reservations = {
     id: string;
     time: string;
@@ -38,7 +47,7 @@ function Reservations() {
       <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reservations</Text>
       <SearchComponent setReservations={setReservations}/>
       <ReservationList reservations={reservations} />
-      <ReservationForm />
+      {signedInVendor ? <ReservationForm /> : null}
     </View>
   );
 }
