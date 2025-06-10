@@ -45,7 +45,7 @@ function Reservations() {
   return (
     <View style={{ flex: 1, padding: 20 }}>
       <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reservations</Text>
-      <SearchComponent />
+      <SearchComponent setReservations={setReservations}/>
       <ReservationList reservations={reservations} />
       {signedInVendor ? <ReservationForm /> : null}
     </View>

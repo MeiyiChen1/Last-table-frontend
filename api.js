@@ -121,3 +121,8 @@ export const getUser = (user_id) => {
   return lastTableApi.get(`/users/${user_id}`)
   .then(res => res.data)
 }
+
+export const getReservationsByCategory = (category) => {
+  return lastTableApi.get(`/reservations?category=${category}`)
+  .then(res => res.data)
+}
