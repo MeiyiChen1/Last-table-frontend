@@ -1,8 +1,12 @@
 import { Text, View } from "react-native";
 import { Link } from "@react-navigation/native";
+import Header from "@/components/header";
 
 export default function Index() {
   return (
+    <>
+
+
     <View
       style={{
         flex: 1,
@@ -20,5 +24,6 @@ export default function Index() {
         <Text>Restaurant with a last minute cancellation</Text>
       </Link>
     </View>
+    </>
   );
 }
