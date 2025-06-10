@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
 import { deleteReservations } from "@/api";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { VendorLogInContext } from "@/Contexts";
 
 type Reservation = {
   id: string;
@@ -16,6 +17,14 @@ type ReservationCardProps = {
 
 export default function ReservationCard(props: ReservationCardProps) {
   const [isDeleted, setIsDeleted] = useState(false);
+
+  const vendorLogInContext = useContext(VendorLogInContext);
+
+  if (!vendorLogInContext) {
+    return <Text>hi</Text>;
+  }
+
+  const { signedInVendor } = vendorLogInContext;
 
   function handleDelete(id: any) {
     console.log(id);
@@ -36,14 +45,17 @@ export default function ReservationCard(props: ReservationCardProps) {
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Reserve</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Button
-              title="Remove Reservation"
-              onPress={() => {
-                handleDelete(props.reservation.id);
-              }}
-            ></Button>
-          </TouchableOpacity>
+
+          {signedInVendor ? (
+            <TouchableOpacity style={styles.button}>
+              <Button
+                title="Remove Reservation"
+                onPress={() => {
+                  handleDelete(props.reservation.id);
+                }}
+              ></Button>
+            </TouchableOpacity>
+          ) : null}
         </View>
       ) : (
         <Text>Reservation Deleted!</Text>
