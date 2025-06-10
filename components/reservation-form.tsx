@@ -1,18 +1,28 @@
 import { postReservations } from "@/api";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { VendorLogInContext } from "@/Contexts";
 
 export default function ReservationForm() {
   const [time, setTime] = useState("");
   const [availableSeats, setAvailableSeats] = useState("");
 
-    const handleSubmit = async () => {
+  const vendorLogInContext = useContext(VendorLogInContext);
+
+  if (!vendorLogInContext) {
+    return <Text>hi</Text>;
+  }
+
+  const { signedInVendor, setSignedInVendor, signedInVendorType } =
+    vendorLogInContext;
+
+  const handleSubmit = async () => {
     try {
       await postReservations(
         time,
         Number(availableSeats),
-        "mcdonalds", 
-        "fastfood"   
+        signedInVendor,
+        signedInVendorType
       );
       alert("Reservation submitted successfully!");
     } catch (error) {
