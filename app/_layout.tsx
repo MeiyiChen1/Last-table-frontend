@@ -1,7 +1,8 @@
-import { Stack } from "expo-router";
 import { LogInContext, VendorLogInContext } from "@/Contexts";
-import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Stack } from "expo-router";
+import { useEffect, useState } from "react";
+
 
 export default function RootLayout() {
   const [signedInUser, setSignedInUser] = useState<string | null>(null);
@@ -56,6 +57,7 @@ export default function RootLayout() {
   }, [signedInVendorType]);
 
   return (
+    <>
     <VendorLogInContext.Provider
       value={{
         signedInVendor,
@@ -65,29 +67,34 @@ export default function RootLayout() {
       }}
     >
       <LogInContext.Provider value={{ signedInUser, setSignedInUser }}>
-        <Stack>
-          <Stack.Screen name="index" options={{ title: "Index" }} />
+          
+          <Stack>
+
+           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+
+          <Stack.Screen name="index" options={{ title: "", headerShown: false}} />
 
           <Stack.Screen
             name="reservations"
-            options={{ title: "Reservations" }}
+            options={{ title: "", headerShown: false}}
           />
           <Stack.Screen
             name="restaurant-details"
-            options={{ title: "Restaurant Details" }}
+            options={{ title: "", headerShown: false}}
           />
-          <Stack.Screen name="restaurants" options={{ title: "Restaurants" }} />
-          <Stack.Screen name="sign-in" options={{ title: "Sign In" }} />
+          <Stack.Screen name="restaurants" options={{ title: "", headerShown: false}} />
+          <Stack.Screen name="sign-in" options={{ title: "", headerShown: false}} />
           <Stack.Screen
             name="user-profile"
-            options={{ title: "User Profile" }}
+            options={{ title: "", headerShown: false }}
           />
           <Stack.Screen
             name="user-signup-page"
-            options={{ title: "Create an Account" }}
+            options={{ title: "", headerShown: false }}
           />
-        </Stack>
+          </Stack>
       </LogInContext.Provider>
     </VendorLogInContext.Provider>
+    </>
   );
 }
