@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 type SearchProps = {
-  searchTerm: string,
   category: string,
   setSearchTerm: Function,
   setCategory: Function
