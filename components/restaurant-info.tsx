@@ -1,5 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
 
 interface Vendor {
   username: string;
@@ -31,30 +33,30 @@ export default function RestaurantInfo({ vendor }: Props) {
   );
 }
 const styles = StyleSheet.create({
-  container: { alignItems: "center", marginTop: 50, padding: 20 },
-  title: { color: "black", fontWeight: "bold", fontSize: 30, marginBottom: 20 },
-  name: {
-    fontSize: 24,
-    fontWeight: "600",
-    color: "#333",
-    marginTop: 12,
-    marginBottom: 8,
+  container: {
+    backgroundColor: colours.lightGreen,
+    alignItems: "center",
+    marginTop: typography.fontSizes.large,
+    padding: typography.fontSizes.large,
+    borderRadius: 12,
   },
   label: {
-    fontSize: 18,
+    fontSize: typography.fontSizes.medium,
     fontWeight: "bold",
-    color: "black",
+    color: colours.textPrimary,
+    marginTop: typography.fontSizes.small,
   },
   text: {
-    fontSize: 16,
-    color: "#444",
-    marginBottom: 5,
+    fontSize: typography.fontSizes.medium,
+    color: colours.textSecondary,
+    marginBottom: typography.fontSizes.small,
   },
   avatar: {
     width: 120,
     height: 120,
     borderRadius: 60,
     borderWidth: 2,
-    borderColor: "#ccc",
+    borderColor: colours.border,
+    marginBottom: typography.fontSizes.medium,
   },
 });

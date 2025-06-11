@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, Text } from "react-native";
 import { getReservationById } from "../api";
 import ReservationInfo from "../components/reservation-info";
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
 
 interface Reservation {
   time: string;
@@ -47,6 +49,16 @@ export default function ReservationDetails() {
 }
 
 const styles = StyleSheet.create({
-  container: { alignItems: "center", marginTop: 50, padding: 20 },
-  title: { color: "black", fontWeight: "bold", fontSize: 30, marginBottom: 20 },
+  container: {
+    alignItems: "center",
+    padding: typography.fontSizes.large,
+    marginTop: typography.fontSizes.large,
+  },
+  title: {
+    color: colours.textPrimary,
+    fontSize: typography.fontSizes.xLarge,
+    fontWeight: "bold",
+    marginBottom: typography.fontSizes.large,
+    textAlign: "center",
+  },
 });

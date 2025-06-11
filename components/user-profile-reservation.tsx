@@ -1,5 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { colours } from "../styles/colours";
+import { commonStyles } from "../styles/commonStyles";
+import { typography } from "../styles/typography";
 
 interface Reservation {
   restaurant_name: string;
@@ -24,10 +27,10 @@ function formatTime(time: string) {
 
 export default function UserProfileReservations({ reservations }: Props) {
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.sectionTitle}>Reservations Booked</Text>
       {reservations.map((res, index) => (
-        <View key={index} style={styles.reservationCard}>
+        <View key={index} style={[styles.reservationCard, commonStyles.cardShadow]}>
           <Text style={styles.text}>
             <Text style={styles.label}>Restaurant:</Text> {res.restaurant_name}
           </Text>
@@ -47,32 +50,35 @@ export default function UserProfileReservations({ reservations }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { width: "100%", paddingHorizontal: 10 },
+  container: {
+    width: "100%",
+    paddingHorizontal: typography.fontSizes.large,
+    paddingBottom: typography.fontSizes.large,
+  },
   sectionTitle: {
-    fontSize: 22,
+    fontSize: typography.fontSizes.xLarge,
     fontWeight: "bold",
-    marginBottom: 15,
-    color: "#333",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.large,
     textAlign: "center",
   },
   reservationCard: {
-    maxWidth: 350,
-    backgroundColor: "#f2f2f2",
-    borderColor: "#ddd",
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
+    backgroundColor: colours.lightGreen,
+    borderRadius: 12,
+    padding: typography.fontSizes.large,
+    marginBottom: typography.fontSizes.large,
     alignSelf: "center",
+    width: "100%",
+    maxWidth: 400,
   },
   label: {
-    fontSize: 18,
+    fontSize: typography.fontSizes.medium,
     fontWeight: "bold",
-    color: "black",
+    color: colours.textPrimary,
   },
   text: {
-    fontSize: 16,
-    color: "#444",
-    marginBottom: 5,
+    fontSize: typography.fontSizes.medium,
+    color: colours.textSecondary,
+    marginBottom: typography.fontSizes.small,
   },
 });

@@ -1,5 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
 
 interface UserProfile {
   name: string;
@@ -22,23 +24,29 @@ export default function UserProfileInfo({ user }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { alignItems: "center", marginBottom: 20 },
+  container: {
+    backgroundColor: colours.lightGreen,
+    borderRadius: 12,
+    padding: typography.fontSizes.large,
+    alignItems: "center",
+    marginVertical: typography.fontSizes.large,
+  },
   avatar: {
     width: 120,
     height: 120,
     borderRadius: 60,
     borderWidth: 2,
-    borderColor: "#ccc",
+    borderColor: colours.border,
+    marginBottom: typography.fontSizes.medium,
   },
   name: {
-    fontSize: 24,
-    fontWeight: "600",
-    color: "#333",
-    marginTop: 12,
-    marginBottom: 8,
+    fontSize: typography.fontSizes.large,
+    fontWeight: "bold",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
   },
   email: {
-    fontSize: 16,
-    color: "#333",
+    fontSize: typography.fontSizes.medium,
+    color: colours.textSecondary,
   },
 });

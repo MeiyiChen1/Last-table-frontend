@@ -3,7 +3,8 @@ import ReservationListWithRemove, { Reservation } from "@/components/reservation
 import RestaurantInfo from "@/components/restaurant-info";
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
-
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
 
 export default function RestaurantProfile() {
 
@@ -46,6 +47,16 @@ export default function RestaurantProfile() {
 
 
 const styles = StyleSheet.create({
-  container: { alignItems: "center", marginTop: 50, padding: 20 },
-  title: { color: "black", fontWeight: "bold", fontSize: 30, marginBottom: 20 },
+  container: {
+    alignItems: "center",
+    padding: typography.fontSizes.large,
+    marginTop: typography.fontSizes.large,
+  },
+  title: {
+    color: colours.textPrimary,
+    fontSize: typography.fontSizes.xLarge,
+    fontWeight: "bold",
+    marginBottom: typography.fontSizes.large,
+    textAlign: "center",
+  },
 });

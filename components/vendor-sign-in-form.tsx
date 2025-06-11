@@ -1,36 +1,15 @@
-import { useState, useEffect, useContext } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { postUsers, getVendors } from "../api";
-import DropDownPicker from "react-native-dropdown-picker";
 import { VendorLogInContext } from "@/Contexts";
 import { Link } from "@react-navigation/native";
+import { useContext, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
+import { getVendors } from "../api";
+import { colours } from "../styles/colours";
+import { commonStyles } from "../styles/commonStyles";
+import { typography } from "../styles/typography";
 
 //setLoading state
 
-const styles = StyleSheet.create({
-  input: {
-    height: 20,
-    width: 180,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderRadius: 3,
-  },
-  heading: {
-    marginBottom: 20,
-    textDecorationLine: "underline",
-  },
-  container: {
-    flex: 1,
-
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderRadius: 3,
-  },
-});
 
 function VendorSignInForm({}) {
   const [username, setusername] = useState("");
@@ -66,8 +45,9 @@ function VendorSignInForm({}) {
 
   return (
     <>
-      <View style={styles.container}>
-        <Text>Select your username:</Text>
+      <View style={[styles.container, commonStyles.cardShadow]}>
+        <Text style={styles.heading}>Vendor Sign In</Text>
+        <Text style={styles.label}>Select your username:</Text>
         <DropDownPicker
           open={open}
           value={value}
@@ -75,9 +55,12 @@ function VendorSignInForm({}) {
           setOpen={setOpen}
           setValue={setValue}
           setItems={setItems}
+          style={styles.dropdown}
+          textStyle={styles.dropdownText}
+          dropDownContainerStyle={styles.dropdownContainer}
         />
         <Link screen="restaurant-signup" params={{}}>
-          <Text>Or Create an Account:</Text>
+          <Text style={styles.linkText}>Or Create an Account:</Text>
         </Link>
         {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
       </View>
@@ -86,3 +69,49 @@ function VendorSignInForm({}) {
 }
 
 export default VendorSignInForm;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colours.lightGreen,
+    borderRadius: 12,
+    padding: typography.fontSizes.large,
+    marginVertical: typography.fontSizes.large,
+    alignItems: "stretch",
+  },
+  heading: {
+    fontSize: typography.fontSizes.xLarge,
+    fontWeight: "bold",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.large,
+    textAlign: "center",
+    textDecorationLine: "underline",
+  },
+  label: {
+    fontSize: typography.fontSizes.medium,
+    fontWeight: "600",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
+  },
+  dropdown: {
+    borderColor: colours.border,
+    borderRadius: 8,
+    paddingHorizontal: typography.fontSizes.small,
+    backgroundColor: colours.white,
+    marginBottom: typography.fontSizes.medium,
+  },
+  dropdownText: {
+    fontSize: typography.fontSizes.medium,
+    color: colours.textPrimary,
+  },
+  dropdownContainer: {
+    borderColor: colours.border,
+    borderRadius: 8,
+  },
+  linkText: {
+    marginTop: typography.fontSizes.medium,
+    fontSize: typography.fontSizes.medium,
+    color: colours.primaryGreen,
+    textAlign: "center",
+    textDecorationLine: "underline",
+  },
+});

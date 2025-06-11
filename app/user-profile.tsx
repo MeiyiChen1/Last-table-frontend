@@ -1,9 +1,11 @@
+import { LogInContext } from "@/Contexts";
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
+import { getReservationById, getUser } from "../api";
 import UserProfileInfo from "../components/user-profile-info";
 import UserProfileReservations from "../components/user-profile-reservation";
-import { LogInContext } from "@/Contexts";
-import { getUser, getReservationById} from "../api";
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
 
 interface Reservation {
   restaurant_name: string;
@@ -65,6 +67,16 @@ export default function UserProfile() {
 }
 
 const styles = StyleSheet.create({
-  container: { alignItems: "center", marginTop: 50, padding: 20 },
-  title: { color: "black", fontWeight: "bold", fontSize: 30, marginBottom: 20 },
+  container: {
+    alignItems: "center",
+    padding: typography.fontSizes.large,
+    marginTop: typography.fontSizes.large,
+  },
+  title: {
+    fontSize: typography.fontSizes.xLarge,
+    fontWeight: "bold",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.large,
+    textAlign: "center",
+  },
 });

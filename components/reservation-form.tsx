@@ -1,6 +1,9 @@
 import { postReservations } from "@/api";
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { colours } from "../styles/colours";
+import { commonStyles } from "../styles/commonStyles";
+import { typography } from "../styles/typography";
 
 export default function ReservationForm() {
   const [time, setTime] = useState("");
@@ -22,7 +25,7 @@ export default function ReservationForm() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, commonStyles.cardShadow]}>
       <Text style={styles.label}>Reservation Time</Text>
       <TextInput
         style={styles.input}
@@ -40,32 +43,49 @@ export default function ReservationForm() {
         keyboardType="numeric"
       />
 
-      <Button title="Submit Reservation" onPress={handleSubmit} />
+      <TouchableOpacity
+        style={[commonStyles.button, { backgroundColor: colours.primaryGreen }]}
+        onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Submit Reservation</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    marginTop: 20,
+    padding: typography.fontSizes.large,
+    backgroundColor: colours.white,
+    borderRadius: 12,
+    marginTop: typography.fontSizes.large,
   },
   label: {
-    fontWeight: "bold",
-    marginBottom: 6,
+    fontSize: typography.fontSizes.medium,
+    fontWeight: "600", 
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
   },
   input: {
-    borderColor: "#ccc",
+    borderColor: colours.border,
     borderWidth: 1,
-    borderRadius: 6,
-    padding: 10,
-    marginBottom: 12,
+    borderRadius: 8,
+    padding: typography.fontSizes.medium,
+    marginBottom: typography.fontSizes.medium,
+    fontSize: typography.fontSizes.medium,
+    color: colours.textPrimary,
+  },
+  button: {
+    backgroundColor: colours.primaryGreen,
+    paddingVertical: typography.fontSizes.medium,
+    paddingHorizontal: typography.fontSizes.large,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: typography.fontSizes.medium,
+  },
+  buttonText: {
+    color: colours.white,
+    fontSize: typography.fontSizes.large,
+    fontWeight: "bold",
   },
 });
