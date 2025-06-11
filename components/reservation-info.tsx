@@ -2,6 +2,10 @@ import * as Linking from "expo-linking";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
 import { getVendorById } from "../api";
+import { colours } from "../styles/colours";
+import { commonStyles } from "../styles/commonStyles";
+import { typography } from "../styles/typography";
+
 
 interface Reservation {
   time: string;
@@ -89,9 +93,33 @@ export default function ReservationInfo({ reservation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { width: "100%", alignItems: "center" },
-  info: { fontSize: 18, marginBottom: 10 },
-  label: { fontWeight: "bold", color: "#333" },
-  buttonContainer: { marginTop: 20, width: "100%" },
-  map: { width: "100%", height: 200, marginTop: 10, borderRadius: 10 },
+  container: {
+    width: "100%",
+    alignItems: "center",
+    padding: typography.fontSizes.large,
+    backgroundColor: colours.white,
+    borderRadius: 12,
+    marginTop: typography.fontSizes.large,
+    ...commonStyles.cardShadow,
+  },
+  info: {
+    fontSize: typography.fontSizes.medium,
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
+    textAlign: "center",
+  },
+  label: {
+    fontWeight: "bold",
+    color: colours.textSecondary,
+  },
+  buttonContainer: {
+    marginTop: typography.fontSizes.large,
+    width: "100%",
+  },
+  map: {
+    width: "100%",
+    height: 200,
+    marginTop: typography.fontSizes.medium,
+    borderRadius: 10,
+  },
 });

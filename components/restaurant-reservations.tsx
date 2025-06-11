@@ -1,6 +1,9 @@
-import ReservationList from "./reservation-list";
-import { useEffect, useState } from "react"
 import { getReservations } from "@/api";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
+import ReservationList from "./reservation-list";
 
 type Vendor = {
   username: string;
@@ -39,9 +42,24 @@ type Props = {
 
 
     return (
-        <>
+        <View style={styles.container}>
+        <Text style={styles.title}>Reservations for {vendor.username}</Text>
         <ReservationList reservations={reservations}/>
-        </>
+        </View>
     )
 
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: typography.fontSizes.large,
+    backgroundColor: colours.white,
+  },
+  title: {
+    fontSize: typography.fontSizes.xLarge,
+    fontWeight: "bold",
+    color: colours.textPrimary,
+    textAlign: "center",
+    marginBottom: typography.fontSizes.medium,
+  },
+});

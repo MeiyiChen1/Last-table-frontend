@@ -1,39 +1,10 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { postUsers } from "../api";
+import { colours } from "../styles/colours";
+import { commonStyles } from "../styles/commonStyles";
+import { typography } from "../styles/typography";
 
-const styles = StyleSheet.create({
-  input: {
-    height: 20,
-    width: 180,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderRadius: 3,
-    marginBottom: 10,
-    paddingHorizontal: 5,
-    fontSize: 16,
-  },
-  heading: {
-    marginBottom: 20,
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "blue",
-    textAlign: "center",
-    textDecorationLine: "underline",
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderRadius: 3,
-    padding: 20,
-    marginTop: 20,
-  },
-});
 
 function SignUpForm() {
   const [username, setUsername] = useState("");
@@ -56,27 +27,27 @@ function SignUpForm() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, commonStyles.cardShadow]}>
       <Text style={styles.heading}>Make an Account</Text>
 
-      <Text>Username:</Text>
+      <Text style={styles.label}>Username:</Text>
       <TextInput
         style={styles.input}
         value={username}
         onChangeText={setUsername}
       />
 
-      <Text>Icon URL:</Text>
+      <Text style={styles.label}>Icon URL:</Text>
       <TextInput
         style={styles.input}
         value={icon_url}
         onChangeText={setIconUrl}
       />
 
-      <Text>email:</Text>
+      <Text style={styles.label}>Email:</Text>
       <TextInput style={styles.input} value={email} onChangeText={setEmail} />
 
-      <Text>Name:</Text>
+      <Text style={styles.label}>Name:</Text>
       <TextInput style={styles.input} value={name} onChangeText={setName} />
 
       <Text>Submit your details to create an account</Text>
@@ -86,3 +57,46 @@ function SignUpForm() {
 }
 
 export default SignUpForm;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colours.lightGreen,
+    borderRadius: 12,
+    padding: typography.fontSizes.large,
+    marginVertical: typography.fontSizes.large,
+    alignItems: "stretch",
+  },
+  heading: {
+    fontSize: typography.fontSizes.xLarge,
+    fontWeight: "bold",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.large,
+    textAlign: "center",
+    textDecorationLine: "underline",
+  },
+  label: {
+    fontSize: typography.fontSizes.medium,
+    fontWeight: "600",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
+  },
+  input: {
+    borderColor: colours.border,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: typography.fontSizes.medium,
+    marginBottom: typography.fontSizes.medium,
+    fontSize: typography.fontSizes.medium,
+    color: colours.textPrimary,
+    backgroundColor: colours.white,
+  },
+  footerText: {
+    fontSize: typography.fontSizes.small,
+    color: colours.textSecondary,
+    textAlign: "center",
+    marginBottom: typography.fontSizes.medium,
+  },
+  buttonWrapper: {
+    marginTop: typography.fontSizes.small,
+  },
+});

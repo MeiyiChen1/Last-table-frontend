@@ -1,36 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { postUsers, getUsers } from "../api";
-import DropDownPicker from "react-native-dropdown-picker";
 import { LogInContext } from "@/Contexts";
 import { Link } from "@react-navigation/native";
+import { useContext, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
+import { getUsers } from "../api";
+import { colours } from "../styles/colours";
+import { commonStyles } from "../styles/commonStyles";
+import { typography } from "../styles/typography";
+
 
 //setLoading state
 
-const styles = StyleSheet.create({
-  input: {
-    height: 20,
-    width: 180,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderRadius: 3,
-  },
-  heading: {
-    marginBottom: 20,
-    textDecorationLine: "underline",
-  },
-  container: {
-    flex: 1,
-
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderRadius: 3,
-  },
-});
 
 function SignInForm({}) {
   const [username, setusername] = useState("");
@@ -72,7 +52,8 @@ function SignInForm({}) {
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, commonStyles.cardShadow]}>
+        <Text style={styles.heading}>Sign In</Text>
         <Text>Select your username:</Text>
         <DropDownPicker
           open={open}
@@ -81,10 +62,13 @@ function SignInForm({}) {
           setOpen={setOpen}
           setValue={setValue}
           setItems={setItems}
+          style={styles.dropdown}
+          textStyle={styles.dropdownText}
+          dropDownContainerStyle={styles.dropdownContainer}
         />
         {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
         <Link screen="user-signup-page" params={{}}>
-          <Text>Or Create an Account:</Text>
+          <Text style={styles.linkText}>Or Create an Account:</Text>
         </Link>
       </View>
 
@@ -94,3 +78,49 @@ function SignInForm({}) {
 }
 
 export default SignInForm;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colours.lightGreen,
+    borderRadius: 12,
+    padding: typography.fontSizes.large,
+    marginVertical: typography.fontSizes.large,
+    alignItems: "stretch",
+  },
+  heading: {
+    fontSize: typography.fontSizes.xLarge,
+    fontWeight: "bold",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.large,
+    textAlign: "center",
+    textDecorationLine: "underline",
+  },
+  label: {
+    fontSize: typography.fontSizes.medium,
+    fontWeight: "600",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
+  },
+  dropdown: {
+    borderColor: colours.border,
+    borderRadius: 8,
+    paddingHorizontal: typography.fontSizes.small,
+    backgroundColor: colours.white,
+    marginBottom: typography.fontSizes.medium,
+  },
+  dropdownText: {
+    fontSize: typography.fontSizes.medium,
+    color: colours.textPrimary,
+  },
+  dropdownContainer: {
+    borderColor: colours.border,
+    borderRadius: 8,
+  },
+  linkText: {
+    marginTop: typography.fontSizes.medium,
+    fontSize: typography.fontSizes.medium,
+    color: colours.primaryGreen,
+    textAlign: "center",
+    textDecorationLine: "underline",
+  },
+});

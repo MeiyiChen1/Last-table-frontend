@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
 import { deleteReservations } from "@/api";
-import { useState, useContext } from "react";
 import { VendorLogInContext } from "@/Contexts";
+import { useContext, useState } from "react";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type Reservation = {
   id: string;

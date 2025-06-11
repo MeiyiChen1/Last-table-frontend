@@ -1,6 +1,8 @@
 import { getReservations, getReservationsByCategory } from "@/api";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
 
 
 type Reservations = {
@@ -71,7 +73,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({setReservations}) => {
             ]}
             onPress={() => setCategory(item)}
           >
-            <Text style={styles.buttonText}>{item}</Text>
+            <Text style={[styles.buttonText, category === item && styles.selectedButtonText]}>{item}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -79,20 +81,31 @@ const SearchComponent: React.FC<SearchComponentProps> = ({setReservations}) => {
   );
 };
 
+
+export default SearchComponent;
+
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    backgroundColor: colours.lightGreen,
+    padding: typography.fontSizes.large,
+    borderRadius: 12,
+    marginBottom: typography.fontSizes.large,
   },
   label: {
+    fontSize: typography.fontSizes.medium,
     fontWeight: "bold",
-    marginBottom: 6,
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 6,
-    padding: 10,
-    marginBottom: 12,
+    borderColor: colours.border,
+    borderRadius: 8,
+    padding: typography.fontSizes.medium,
+    fontSize: typography.fontSizes.medium,
+    color: colours.textPrimary,
+    backgroundColor: colours.white,
+    marginBottom: typography.fontSizes.medium,
   },
   buttonGroup: {
     flexDirection: "row",
@@ -100,17 +113,25 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   button: {
-    backgroundColor: "#eee",
-    padding: 8,
-    margin: 4,
-    borderRadius: 6,
+    backgroundColor: colours.white,
+    paddingVertical: typography.fontSizes.small,
+    paddingHorizontal: typography.fontSizes.medium,
+    borderRadius: 8,
+    marginRight: 8,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: colours.border,
   },
   selectedButton: {
-    backgroundColor: "#007AFF",
+    backgroundColor: colours.primaryGreen,
+    borderColor: colours.primaryGreen,
   },
   buttonText: {
-    color: "black",
+    color: colours.textPrimary,
+    fontSize: typography.fontSizes.medium,
+  },
+  selectedButtonText: {
+    color: colours.white,
+    fontWeight: "bold",
   },
 });
-
-export default SearchComponent;

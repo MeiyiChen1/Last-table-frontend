@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { getVendors } from "../api";
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
 import RestaurantCards from "./restaurant-cards";
+
 export type RestaurantProps = {
   icon_url: string;
   username: string;
@@ -21,8 +24,8 @@ function RestaurantList() {
   }, []);
 
   return (
-    <ScrollView>
-      <View>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
         {restaurantList.map((restaurant) => {
           const {
             icon_url,
@@ -50,3 +53,21 @@ function RestaurantList() {
   );
 }
 export default RestaurantList;
+
+const styles = StyleSheet.create({
+  scrollContainer: {
+    paddingBottom: typography.fontSizes.large,
+  },
+  container: {
+    flex: 1,
+    padding: typography.fontSizes.large,
+    backgroundColor: colours.white,
+  },
+  title: {
+    fontSize: typography.fontSizes.xLarge,
+    fontWeight: "bold",
+    color: colours.textPrimary,
+    textAlign: "center",
+    marginBottom: typography.fontSizes.medium,
+  },
+});
