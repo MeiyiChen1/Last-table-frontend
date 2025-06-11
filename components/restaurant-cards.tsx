@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { useContext } from "react";
+import { Button, Image, StyleSheet, Text, View } from "react-native";
 // import { RestaurantProps } from "./restaurant-list";
-import { postFavouritesByUserId, getVendors, getVendorById } from "../api";
-import { Link } from "@react-navigation/native";
 import { LogInContext } from "@/Contexts";
+import { Link } from "@react-navigation/native";
+import { getVendorById, postFavouritesByUserId } from "../api";
 
 export type RestaurantProps = {
   icon_url: string;
@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 3,
   },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 10,
+    resizeMode: "cover",
+  },
 });
 
 //we need to implement this functionality after we have created some useState for the user.
@@ -58,7 +64,7 @@ function RestaurantCards(props: RestaurantProps) {
     <View style={styles.container}>
       <Link screen="restaurant-details" params={{ id: props.id }}>
         <View style={styles.div}>
-          <Text>{props.icon_url}</Text>
+          <Image source={{ uri: props.icon_url }} style={styles.image} />
           <Text>{props.username}</Text>
           <Text>{props.restaurant_type}</Text>
         </View>
