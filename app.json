@@ -33,6 +33,12 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoiaXphYWtnb3VnaCIsImEiOiJjbWJycDl1cHQwYWI2MmxxdWF1ZXd2NzJ4In0.NMlZn9Romfa6gBabC_FTyQ"
+        }
       ]
     ],
     "experiments": {

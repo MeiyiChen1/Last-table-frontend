@@ -1,9 +1,11 @@
 import { Text, View } from "react-native";
 import { Link } from "@react-navigation/native";
+import MapApp from "@/components/map-compnent";
 
 export default function Index() {
   return (
     <>
+    <MapApp></MapApp>
     <View
       style={{
         flex: 1,
