@@ -72,14 +72,7 @@ function RestaurantCards(props: RestaurantProps) {
         </View>
       </Link>
 
-      <View style={styles.buttonWrapper}>
-        
-        <Button
-          title="Favourite"
-          onPress={() => handleFavourite(props.id)}
-          color={colours.primaryGreen}
-        />
-      </View>
+      <View style={styles.buttonWrapper}></View>
 
       <Button
         title="Favourite"
@@ -88,7 +81,6 @@ function RestaurantCards(props: RestaurantProps) {
         }}
         color={colours.primaryGreen}
       ></Button>
-
     </View>
   );
 }
