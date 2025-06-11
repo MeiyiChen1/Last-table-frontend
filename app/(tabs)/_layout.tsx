@@ -53,7 +53,21 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
         }}
       />
+
+      <Tabs.Screen
+      name= "profile"
+      options={{
+        title: "Profile",
+        href: null,
+        headerShown:false,
+        tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+      }} 
+      />
+
+
     </Tabs>
+
+    
 
 
 
@@ -87,6 +101,18 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
         }}
       />
+
+      <Tabs.Screen
+      name= "profile"
+      options={{
+        title: "Profile",
+        headerShown:false,
+        tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+      }} 
+      />
+
+
+
     </Tabs>
 
       ) : (
@@ -118,6 +144,19 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
         }}
       />
+
+      
+      <Tabs.Screen
+      name= "profile"
+      options={{
+        title: "Profile",
+        headerShown:false,
+        tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+      }} 
+      />
+
+
+
     </Tabs>)
 
     )}
