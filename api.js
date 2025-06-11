@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const lastTableApi = axios.create({
-  baseURL: "http://localhost:9090/",
+  baseURL: "https://last-table.onrender.com",
 });
 
 export const postUsers = (username, icon_url, email, name) => {
@@ -118,11 +118,11 @@ export const getUsers = () => {
 };
 
 export const getUser = (user_id) => {
-  return lastTableApi.get(`/users/${user_id}`)
-  .then(res => res.data)
-}
+  return lastTableApi.get(`/users/${user_id}`).then((res) => res.data);
+};
 
 export const getReservationsByCategory = (category) => {
-  return lastTableApi.get(`/reservations?category=${category}`)
-  .then(res => res.data)
-}
+  return lastTableApi
+    .get(`/reservations?category=${category}`)
+    .then((res) => res.data);
+};
