@@ -126,3 +126,9 @@ export const getReservationsByCategory = (category) => {
     .get(`/reservations?category=${category}`)
     .then((res) => res.data);
 };
+
+export const getVendorUsernameQuery = (username) => {
+  return lastTableApi
+    .get(`vendors/?username=${username}`)
+    .then((res) => res.data);
+};
