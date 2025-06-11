@@ -1,7 +1,7 @@
 import { LogInContext } from "@/Contexts";
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { getUsers } from "../api";
 import { colours } from "../styles/colours";
@@ -9,10 +9,8 @@ import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
 
 
-//setLoading state
-
-
 function SignInForm({}) {
+  const navigation = useNavigation();
   const [username, setusername] = useState("");
   //loggedInUser state
 
@@ -41,7 +39,10 @@ function SignInForm({}) {
     });
   }, []);
 
-  setSignedInUser(value);
+  useEffect(() => {
+    setSignedInUser(value);
+  }, [value, setSignedInUser]);
+
   console.log(signedInUser);
 
    function handleLogOut() {
@@ -51,33 +52,51 @@ function SignInForm({}) {
 
 
   return (
-    <>
-      <View style={[styles.container, commonStyles.cardShadow]}>
-        <Text style={styles.heading}>Sign In</Text>
-        <Text>Select your username:</Text>
-        <DropDownPicker
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          style={styles.dropdown}
-          textStyle={styles.dropdownText}
-          dropDownContainerStyle={styles.dropdownContainer}
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
+        <View style={[styles.container, commonStyles.cardShadow]}>
+          <Text style={styles.heading}>Sign In</Text>
+          <Text>Select your username:</Text>
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            dropDownDirection="BOTTOM"
+            style={styles.dropdown}
+            textStyle={styles.dropdownText}
+            dropDownContainerStyle={styles.dropdownContainer}
+            zIndex={3000}
+            zIndexInverse={1000}
         />
-        {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
+        
         <Link screen="user-signup-page" params={{}}>
           <Text style={styles.linkText}>Or Create an Account:</Text>
         </Link>
-      </View>
+        </View>
 
-      <Button title="Sign Out" onPress={handleLogOut}></Button>
-    </>
+        <View style={styles.buttonContainer}>
+      <TouchableOpacity style={commonStyles.smallButton} onPress={handleLogOut}>
+          <Text style={commonStyles.smallButtonText}>Sign Out</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={commonStyles.smallButton}
+        onPress={() => navigation.navigate("reservations" as never)}
+  >
+      <Text style={commonStyles.smallButtonText}>Go to Reservations</Text>
+      </TouchableOpacity>
+      
+      </View>
+      </ScrollView>
+    </View>
   );
 }
 
 export default SignInForm;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -86,6 +105,7 @@ const styles = StyleSheet.create({
     padding: typography.fontSizes.large,
     marginVertical: typography.fontSizes.large,
     alignItems: "stretch",
+    zIndex: 1,
   },
   heading: {
     fontSize: typography.fontSizes.xLarge,
@@ -107,6 +127,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: typography.fontSizes.small,
     backgroundColor: colours.white,
     marginBottom: typography.fontSizes.medium,
+    zIndex: 1000,
   },
   dropdownText: {
     fontSize: typography.fontSizes.medium,
@@ -115,6 +136,7 @@ const styles = StyleSheet.create({
   dropdownContainer: {
     borderColor: colours.border,
     borderRadius: 8,
+    zIndex: 1000,
   },
   linkText: {
     marginTop: typography.fontSizes.medium,
@@ -123,4 +145,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textDecorationLine: "underline",
   },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: "space-between",
+    paddingBottom: 40,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 20,
+    paddingBottom: 30,
+    zIndex: 0,
+  }
 });

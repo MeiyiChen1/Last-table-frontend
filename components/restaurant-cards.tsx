@@ -47,6 +47,7 @@ function RestaurantCards(props: RestaurantProps) {
         </View>
       </Link>
       <View style={styles.buttonWrapper}>
+        
         <Button
           title="Favourite"
           onPress={() => handleFavourite(props.id)}
@@ -73,13 +74,13 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: typography.fontSizes.xLarge,
-    color: colours.textPrimary,
+    color: colours.primaryGreen,
     marginBottom: typography.fontSizes.small,
   },
   username: {
     fontSize: typography.fontSizes.large,
     fontWeight: "bold",
-    color: colours.textPrimary,
+    color: colours.primaryGreen,
     marginBottom: typography.fontSizes.small,
   },
   restaurantType: {

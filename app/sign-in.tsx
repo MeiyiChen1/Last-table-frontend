@@ -1,24 +1,28 @@
-import { View, Text, StyleSheet, Button } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
-import { Link } from "@react-navigation/native";
-
 import SignInForm from "@/components/sign-in-form";
+import { commonStyles } from "@/styles/commonStyles";
+import { ScrollView, StyleSheet, View } from "react-native";
 
-const formStyle = StyleSheet.create({
-  alignment: {
-    alignItems: "center",
-  },
-});
 
-function UserSignInPage() {
+export default function UserSignInPage() {
   return (
-    <View>
-      <SignInForm />
-      <Link screen="reservations" params={{}}>
-        <Button title="Go to Reservations"></Button>
-      </Link>
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={[styles.formBox, commonStyles.cardShadow]}>
+        <SignInForm />
+      </View>
+    </ScrollView>
   );
 }
 
-export default UserSignInPage;
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    justifyContent: "space-between",
+    padding: 20,
+  },
+  formBox: {
+    backgroundColor: "#fff", 
+    borderRadius: 10,
+    padding: 20,
+  },
+});

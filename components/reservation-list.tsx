@@ -28,7 +28,7 @@ export default function ReservationList(props: ReservationListProps) {
   //have linked with the restaurant name, can maybe think about changing this to the ID in future
   return (
     <>
-      <ScrollView contentContainerStyle={{ paddingBottom: 10 }}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View>
           {props.reservations.map((reservation) => {
             console.log(signedInVendor, reservation.restaurant_name);
@@ -52,9 +52,9 @@ export default function ReservationList(props: ReservationListProps) {
             }
           })}
         </View>
-        </ScrollView>
-        </>
-    )
+      </ScrollView>
+    </>
+  );
 }
 const styles = StyleSheet.create({
   container: {
@@ -62,10 +62,13 @@ const styles = StyleSheet.create({
     backgroundColor: colours.white,
     padding: typography.fontSizes.large,
   },
+  innerContainer: {
+    width: "90%"
+  },
   title: {
     fontSize: typography.fontSizes.xLarge,
     fontWeight: "bold",
-    color: colours.textPrimary,
+    color: colours.primaryGreen,
     marginBottom: typography.fontSizes.medium,
     textAlign: "center",
   },
