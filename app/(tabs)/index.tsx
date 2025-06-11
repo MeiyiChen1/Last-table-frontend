@@ -14,6 +14,7 @@ export default function Index() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
+<<<<<<< HEAD:app/index.tsx
     <View style={styles.container}>
       <Image
         source={require("../assets/images/welcome-table.jpg")}
@@ -29,7 +30,27 @@ export default function Index() {
       <TouchableOpacity onPress={() => navigation.navigate("vendor-sign-in")}>
         <Text style={styles.buttonText}>Restaurant with a last minute cancellation</Text>
       </TouchableOpacity>
+=======
+    <>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}>Welcome!</Text>
+      <Text>Are you a: </Text>
+      <Link screen="sign-in" params={{}}>
+        <Text>Hungry Customer</Text>
+      </Link>
+      <Text>Or a:</Text>
+      <Link screen="vendor-sign-in" params={{}}>
+        <Text>Restaurant with a last minute cancellation</Text>
+      </Link>
+>>>>>>> main:app/(tabs)/index.tsx
     </View>
+    </>
   );
 }
 const styles = StyleSheet.create({

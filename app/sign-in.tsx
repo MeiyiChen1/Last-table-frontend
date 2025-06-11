@@ -1,5 +1,6 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { Link } from "@react-navigation/native";
 
 import SignInForm from "@/components/sign-in-form";
 
@@ -10,7 +11,14 @@ const formStyle = StyleSheet.create({
 });
 
 function UserSignInPage() {
-  return <SignInForm />;
+  return (
+    <View>
+      <SignInForm />
+      <Link screen="reservations" params={{}}>
+        <Button title="Go to Reservations"></Button>
+      </Link>
+    </View>
+  );
 }
 
 export default UserSignInPage;

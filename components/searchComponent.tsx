@@ -1,13 +1,56 @@
-import React, { useState } from "react";
+import { getReservations, getReservationsByCategory } from "@/api";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { colours } from "../styles/colours";
 import { typography } from "../styles/typography";
 
-const SearchComponent = () => {
+
+type Reservations = {
+    id: string;
+    time: string;
+    available_seats: number;
+    restaurant_name: string;
+    restaurant_type: string;
+  };
+
+type SearchComponentProps = {
+  setReservations: React.Dispatch<React.SetStateAction<Reservations[]>> 
+}
+
+
+
+const SearchComponent: React.FC<SearchComponentProps> = ({setReservations}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
 
   const categories = ["All", "Fast Food", "Italian", "Japanese"];
+
+  useEffect(() => {
+    if (category === "All") {
+      getReservations()
+      .then(result => {
+        //console.log(result.reservations)
+        setReservations(result.reservations)
+      })
+      .catch(err => {
+        console.log(err.status)
+        console.log(err.response.data.message)
+      })
+    } else {
+      getReservationsByCategory(category)
+      .then(result => {
+        //console.log(result.reservations)
+        setReservations(result.reservations)
+      })
+      .catch(err => {
+        console.log(err.status)
+        console.log(err.response.data.message)
+        if (err.status === 404) {
+          alert(`No ${category} reservations available at the moment...`)
+        }
+      })
+    }
+  }, [category])
 
   return (
     <View style={styles.container}>

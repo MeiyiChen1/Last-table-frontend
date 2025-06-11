@@ -44,6 +44,12 @@ function SignInForm({}) {
   setSignedInUser(value);
   console.log(signedInUser);
 
+   function handleLogOut() {
+    setSignedInUser(null);
+  }
+
+
+
   return (
     <>
       <View style={[styles.container, commonStyles.cardShadow]}>
@@ -66,7 +72,7 @@ function SignInForm({}) {
         </Link>
       </View>
 
-      {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
+      <Button title="Sign Out" onPress={handleLogOut}></Button>
     </>
   );
 }

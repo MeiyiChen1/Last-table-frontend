@@ -17,7 +17,10 @@ function VendorSignInForm({}) {
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState<{ label: string; value: string }[]>([]);
+  const [items, setItems] = useState<
+    { label: string; value: string; cuisine: string }[]
+  >([]);
+  // const [cuisine, setCuisine] = useState<string | null>(null);
 
   const vendorLogInContext = useContext(VendorLogInContext);
 
@@ -25,7 +28,17 @@ function VendorSignInForm({}) {
     return <Text>hi</Text>;
   }
 
-  const { signedInVendor, setSignedInVendor } = vendorLogInContext;
+  const {
+    signedInVendor,
+    setSignedInVendor,
+    signedInVendorType,
+    setSignedInVendorType,
+  } = vendorLogInContext;
+
+  function handleLogOut() {
+    setSignedInVendor(null);
+    setSignedInVendorType(null);
+  }
 
   useEffect(() => {
     getVendors().then((result) => {
@@ -33,15 +46,25 @@ function VendorSignInForm({}) {
       const vendorMap = result.map((vendor: any) => {
         return {
           label: vendor.username,
-          value: vendor.id,
+          value: vendor.username,
+          cuisine: vendor.restaurant_type,
         };
       });
       setItems(vendorMap);
     });
   }, []);
 
-  setSignedInVendor(value);
-  console.log(signedInVendor, "<<<<<<<<<<<<");
+  useEffect(() => {
+    setSignedInVendor(value);
+    if (value) {
+      const selectedVendor = items.find((item) => item.value === value);
+      if (selectedVendor) {
+        setSignedInVendorType(selectedVendor.cuisine);
+      }
+    }
+  }, [value, items]);
+
+  console.log(signedInVendor, "<<<<<<<<<<<<", signedInVendorType);
 
   return (
     <>
@@ -62,6 +85,7 @@ function VendorSignInForm({}) {
         <Link screen="restaurant-signup" params={{}}>
           <Text style={styles.linkText}>Or Create an Account:</Text>
         </Link>
+        <Button title="Sign Out" onPress={handleLogOut}></Button>
         {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
       </View>
     </>

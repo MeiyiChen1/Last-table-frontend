@@ -1,5 +1,6 @@
 import { postReservations } from "@/api";
-import React, { useState } from "react";
+import { VendorLogInContext } from "@/Contexts";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
@@ -9,13 +10,22 @@ export default function ReservationForm() {
   const [time, setTime] = useState("");
   const [availableSeats, setAvailableSeats] = useState("");
 
-    const handleSubmit = async () => {
+  const vendorLogInContext = useContext(VendorLogInContext);
+
+  if (!vendorLogInContext) {
+    return <Text>hi</Text>;
+  }
+
+  const { signedInVendor, setSignedInVendor, signedInVendorType } =
+    vendorLogInContext;
+
+  const handleSubmit = async () => {
     try {
       await postReservations(
         time,
         Number(availableSeats),
-        "mcdonalds", 
-        "fastfood"   
+        signedInVendor,
+        signedInVendorType
       );
       alert("Reservation submitted successfully!");
     } catch (error) {

@@ -43,7 +43,7 @@ export default function RestaurantDetails({ route }: { route: any }) {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Restaurant Details</Text>
       <RestaurantInfo vendor={vendor} />
-      <RestaurantReservations vendor={vendor}/>
+      <RestaurantReservations vendor={vendor} />
     </ScrollView>
   );
 }
