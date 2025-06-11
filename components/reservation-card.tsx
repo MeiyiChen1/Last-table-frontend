@@ -6,7 +6,6 @@ import { colours } from "../styles/colours";
 import { typography } from "../styles/typography";
 import { useRouter } from "expo-router";
 
-
 type Reservation = {
   id: string;
   time: string;
@@ -55,8 +54,56 @@ export default function ReservationCard(props: ReservationCardProps) {
       router.push(`/restaurant-details?id=${selectedVendorId}`);
     });
   }
-
+  const styles = StyleSheet.create({
+    card: {
+      backgroundColor: colours.lightGreen,
+      padding: typography.fontSizes.large,
+      marginVertical: typography.fontSizes.medium,
+      borderRadius: 12,
+      shadowColor: colours.black,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 3,
+    },
+    title: {
+      fontSize: typography.fontSizes.xLarge,
+      fontWeight: "bold",
+      color: colours.primaryGreen, // ✅ GREEN
+      marginBottom: typography.fontSizes.small,
+    },
+    deleteButton: {
+      marginTop: typography.fontSizes.medium,
+      backgroundColor: colours.accentYellow, // or mediumGreen if you prefer
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 6,
+      alignSelf: "flex-start",
+    },
+    deleteButtonText: {
+      color: colours.black,
+      fontWeight: "600",
+    },
+    deletedText: {
+      fontSize: typography.fontSizes.large,
+      fontWeight: "600",
+      color: colours.textSecondary,
+      textAlign: "center",
+    },
+    button: {
+      marginTop: 10,
+      backgroundColor: colours.primaryGreen,
+      paddingVertical: typography.fontSizes.small,
+      paddingHorizontal: typography.fontSizes.large,
+      borderRadius: 6,
+      alignSelf: "flex-start",
+    },
+    buttonText: {
+      color: "#fff",
+      fontWeight: "600",
+    },
   });
+
   //then create a conditional below that links to restaurants/{id} IF selectedVendorId != null
 
   return (
@@ -94,54 +141,3 @@ export default function ReservationCard(props: ReservationCardProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: colours.lightGreen,
-    padding: typography.fontSizes.large,
-    marginVertical: typography.fontSizes.medium,
-    borderRadius: 12,
-    shadowColor: colours.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  title: {
-    fontSize: typography.fontSizes.xLarge,
-    fontWeight: "bold",
-    color: colours.primaryGreen, // ✅ GREEN
-    marginBottom: typography.fontSizes.small,
-  },
-  deleteButton: {
-    marginTop: typography.fontSizes.medium,
-    backgroundColor: colours.accentYellow, // or mediumGreen if you prefer
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 6,
-    alignSelf: "flex-start",
-  },
-  deleteButtonText: {
-    color: colours.black,
-    fontWeight: "600",
-  },
-  deletedText: {
-    fontSize: typography.fontSizes.large,
-    fontWeight: "600",
-    color: colours.textSecondary,
-    textAlign: "center",
-  },
-  button: {
-    marginTop: 10,
-    backgroundColor: colours.primaryGreen,
-    paddingVertical: typography.fontSizes.small,
-    paddingHorizontal: typography.fontSizes.large,
-    borderRadius: 6,
-    alignSelf: "flex-start",
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "600",
-  },
-});
-

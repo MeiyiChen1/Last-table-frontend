@@ -1,15 +1,19 @@
 import { LogInContext } from "@/Contexts";
 import { Link, useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { getUsers } from "../api";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
-import { useRouter } from 'expo-router';
-
-
+import { useRouter } from "expo-router";
 
 function SignInForm({}) {
   const navigation = useNavigation();
@@ -41,33 +45,31 @@ function SignInForm({}) {
     });
   }, []);
 
-
   useEffect(() => {
     setSignedInUser(value);
   }, [value, setSignedInUser]);
 
-
   console.log(signedInUser);
 
-   function handleLogOut() {
+  function handleLogOut() {
     setSignedInUser(null);
   }
 
-
-  const router = useRouter()
+  const router = useRouter();
 
   function handleChange() {
     setSignedInUser(value);
     if (value) {
-      router.navigate("/(tabs)/reservations")
+      router.navigate("/(tabs)/reservations");
     }
   }
 
-
   return (
-
     <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        keyboardShouldPersistTaps="handled"
+      >
         <View style={[styles.container, commonStyles.cardShadow]}>
           <Text style={styles.heading}>Sign In</Text>
           <Text>Select your username:</Text>
@@ -84,41 +86,34 @@ function SignInForm({}) {
             dropDownContainerStyle={styles.dropdownContainer}
             zIndex={3000}
             zIndexInverse={1000}
+          />
 
-    <>
-        />
-        
-        <Link screen="user-signup-page" params={{}}>
-          <Text style={styles.linkText}>Or Create an Account:</Text>
-        </Link>
+          <Link screen="user-signup-page" params={{}}>
+            <Text style={styles.linkText}>Or Create an Account:</Text>
+          </Link>
         </View>
 
         <View style={styles.buttonContainer}>
-      <TouchableOpacity style={commonStyles.smallButton} onPress={handleLogOut}>
-          <Text style={commonStyles.smallButtonText}>Sign Out</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={commonStyles.smallButton}
+            onPress={handleLogOut}
+          >
+            <Text style={commonStyles.smallButtonText}>Sign Out</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        style={commonStyles.smallButton}
-        onPress={() => navigation.navigate("reservations" as never)}
-  >
-      <Text style={commonStyles.smallButtonText}>Go to Reservations</Text>
-      </TouchableOpacity>
-      
-      </View>
-
+          <TouchableOpacity
+            style={commonStyles.smallButton}
+            onPress={() => navigation.navigate("reservations" as never)}
+          >
+            <Text style={commonStyles.smallButtonText}>Go to Reservations</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
-
-
-      
-    </>
-
   );
 }
 
 export default SignInForm;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -178,5 +173,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingBottom: 30,
     zIndex: 0,
-  }
+  },
 });
