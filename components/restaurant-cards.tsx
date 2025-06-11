@@ -4,6 +4,8 @@ import { Button, Image, StyleSheet, Text, View } from "react-native";
 import { LogInContext } from "@/Contexts";
 import { Link } from "@react-navigation/native";
 import { getVendorById, postFavouritesByUserId } from "../api";
+import { colours } from "../styles/colours";
+import { typography } from "../styles/typography";
 
 export type RestaurantProps = {
   icon_url: string;
@@ -14,31 +16,31 @@ export type RestaurantProps = {
   location_data: string;
 };
 
-const styles = StyleSheet.create({
-  div: {
-    marginTop: 50,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderRadius: 3,
-  },
-  container: {
-    flex: 1,
+// const styles = StyleSheet.create({
+//   div: {
+//     marginTop: 50,
+//     borderWidth: 1,
+//     borderStyle: "solid",
+//     borderColor: "black",
+//     borderRadius: 3,
+//   },
+//   container: {
+//     flex: 1,
 
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "black",
-    borderRadius: 3,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 10,
-    resizeMode: "cover",
-  },
-});
+//     alignItems: "center",
+//     justifyContent: "center",
+//     borderWidth: 1,
+//     borderStyle: "solid",
+//     borderColor: "black",
+//     borderRadius: 3,
+//   },
+//   image: {
+//     width: 200,
+//     height: 200,
+//     borderRadius: 10,
+//     resizeMode: "cover",
+//   },
+// });
 
 //we need to implement this functionality after we have created some useState for the user.
 
@@ -61,12 +63,12 @@ function RestaurantCards(props: RestaurantProps) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.card}>
       <Link screen="restaurant-details" params={{ id: props.id }}>
-        <View style={styles.div}>
+        <View style={styles.detailsBox}>
           <Image source={{ uri: props.icon_url }} style={styles.image} />
-          <Text>{props.username}</Text>
-          <Text>{props.restaurant_type}</Text>
+          <Text style={styles.username}>{props.username}</Text>
+          <Text style={styles.restaurantType}>{props.restaurant_type}</Text>
         </View>
       </Link>
       <Button
@@ -79,3 +81,43 @@ function RestaurantCards(props: RestaurantProps) {
   );
 }
 export default RestaurantCards;
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: colours.lightGreen,
+    borderRadius: 12,
+    padding: typography.fontSizes.large,
+    marginVertical: typography.fontSizes.medium,
+    alignItems: "center",
+  },
+  detailsBox: {
+    width: "100%",
+    alignItems: "center",
+    marginBottom: typography.fontSizes.medium,
+  },
+  icon: {
+    fontSize: typography.fontSizes.xLarge,
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
+  },
+  username: {
+    fontSize: typography.fontSizes.large,
+    fontWeight: "bold",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
+  },
+  restaurantType: {
+    fontSize: typography.fontSizes.medium,
+    color: colours.textSecondary,
+  },
+  buttonWrapper: {
+    width: "100%",
+    marginTop: typography.fontSizes.medium,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 10,
+    resizeMode: "cover",
+  },
+});
