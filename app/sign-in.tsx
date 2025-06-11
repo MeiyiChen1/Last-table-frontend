@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, Button } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { Link } from "@react-navigation/native";
+//import { Link } from "@react-navigation/native";
+import { Link } from "expo-router";
+
 
 import SignInForm from "@/components/sign-in-form";
 
@@ -14,9 +16,6 @@ function UserSignInPage() {
   return (
     <View>
       <SignInForm />
-      <Link screen="reservations" params={{}}>
-        <Button title="Go to Reservations"></Button>
-      </Link>
     </View>
   );
 }

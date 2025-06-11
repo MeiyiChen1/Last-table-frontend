@@ -3,6 +3,7 @@ import { LogInContext, VendorLogInContext } from "@/Contexts";
 import { useContext, useEffect, useState} from "react";
 import { Text, Button } from "react-native";
 import { getUser } from "@/api";
+import { useRouter } from "expo-router";
 
 
 export default function LoginStatus() {
@@ -39,12 +40,18 @@ export default function LoginStatus() {
           }, [signedInUser])
 
 
+    const router = useRouter()
+
     function handleUserLogout() {
-        setSignedInUser(null)    
+        setSignedInUser(null)
+        setSignedInVendor(null)  
+        router.navigate("/(tabs)")
     }
 
     function handleVendorLogout() {
+        setSignedInUser(null)
         setSignedInVendor(null)
+        router.navigate("/(tabs)")
     }
 
     return (

@@ -7,6 +7,8 @@ import { getUsers } from "../api";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
+import { useRouter } from 'expo-router';
+
 
 
 //setLoading state
@@ -41,13 +43,22 @@ function SignInForm({}) {
     });
   }, []);
 
-  setSignedInUser(value);
+  
   console.log(signedInUser);
 
    function handleLogOut() {
     setSignedInUser(null);
   }
 
+
+  const router = useRouter()
+
+  function handleChange() {
+    setSignedInUser(value);
+    if (value) {
+      router.navigate("/(tabs)/reservations")
+    }
+  }
 
 
   return (
@@ -65,6 +76,7 @@ function SignInForm({}) {
           style={styles.dropdown}
           textStyle={styles.dropdownText}
           dropDownContainerStyle={styles.dropdownContainer}
+          onChangeValue={handleChange}
         />
         {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
         <Link screen="user-signup-page" params={{}}>
@@ -72,7 +84,7 @@ function SignInForm({}) {
         </Link>
       </View>
 
-      <Button title="Sign Out" onPress={handleLogOut}></Button>
+      
     </>
   );
 }
