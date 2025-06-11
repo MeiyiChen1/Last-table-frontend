@@ -1,7 +1,7 @@
 import { LogInContext } from "@/Contexts";
 import { Link } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { getUsers } from "../api";
 import { colours } from "../styles/colours";

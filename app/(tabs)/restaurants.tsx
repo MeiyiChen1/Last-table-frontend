@@ -1,7 +1,7 @@
 import RestaurantList from "@/components/restaurant-list";
 import { StyleSheet } from "react-native";
-import { colours } from "../styles/colours";
-import { typography } from "../styles/typography";
+import { colours } from "../../styles/colours";
+import { typography } from "../../styles/typography";
 
 const formStyle = StyleSheet.create({
   alignment: {

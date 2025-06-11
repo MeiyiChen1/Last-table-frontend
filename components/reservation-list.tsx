@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-import { ScrollView, StyleSheet, View } from "react-native";
+import { VendorLogInContext } from "@/Contexts";
+import { useContext } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { colours } from "../styles/colours";
 import { typography } from "../styles/typography";
 import ReservationCard from "./reservation-card";
-=======
-import ReservationCard from "./reservation-card";
-import { ScrollView, View, Text } from "react-native";
-import { VendorLogInContext } from "@/Contexts";
-import { useEffect, useState, useContext } from "react";
->>>>>>> main
 
 type Reservation = {
   id: string;
@@ -57,7 +52,6 @@ export default function ReservationList(props: ReservationListProps) {
             }
           })}
         </View>
-<<<<<<< HEAD
         </ScrollView>
         </>
     )
@@ -79,9 +73,3 @@ const styles = StyleSheet.create({
     paddingBottom: typography.fontSizes.large,
   },
 });
-=======
-      </ScrollView>
-    </>
-  );
-}
->>>>>>> main
