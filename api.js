@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const lastTableApi = axios.create({
-  baseURL: "http://localhost:9090",
+  baseURL: "https://last-table.onrender.com",
 });
 
 export const postUsers = (username, icon_url, email, name) => {
