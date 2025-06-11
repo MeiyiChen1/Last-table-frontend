@@ -3,7 +3,7 @@ import { colours } from "../../styles/colours";
 import { typography } from "../../styles/typography";
 
 import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
   "sign-in": undefined;
@@ -11,33 +11,41 @@ type RootStackParamList = {
 };
 
 export default function Index() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <>
-    <View style={styles.container}>
-      <Image
-        source={require("../../assets/images/welcome-table.jpg")}
-        style={styles.image}
-        resizeMode="contain"
-      />
-      <Text style={styles.title}>Welcome!</Text>
-      <Text style={styles.text}>Are you a: </Text>
-      <TouchableOpacity onPress={() => navigation.navigate("sign-in")}>
-        <Text style={styles.buttonText}>Hungry Customer</Text>
-      </TouchableOpacity>
-      <Text style={styles.text}>Or a:</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("vendor-sign-in")}>
-        <Text style={styles.buttonText}>Restaurant with a last minute cancellation</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.container}>
+        <Image
+          source={require("../../assets/images/Logo final.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <Image
+          source={require("../../assets/images/welcome-table.jpg")}
+          style={styles.image}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}>Welcome!</Text>
+        <Text style={styles.text}>Are you a: </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("sign-in")}>
+          <Text style={styles.buttonText}>Hungry Customer</Text>
+        </TouchableOpacity>
+        <Text style={styles.text}>Or a:</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("vendor-sign-in")}>
+          <Text style={styles.buttonText}>
+            Restaurant with a last minute cancellation
+          </Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colours.white,
+    backgroundColor: colours.lightGreen,
     alignItems: "center",
     justifyContent: "center",
     padding: typography.fontSizes.large,
@@ -73,5 +81,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: typography.fontSizes.small,
     fontWeight: "bold",
+  },
+  logo: {
+    width: 300,
+    height: 200,
+    alignSelf: "center",
+    borderRadius: 5,
+    backgroundColor: "transparent",
   },
 });
