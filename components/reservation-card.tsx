@@ -112,6 +112,7 @@ export default function ReservationCard(props: ReservationCardProps) {
     router.push(`/reservation-details?id=${id}`)
   }
 
+  console.log(Boolean(signedInVendor))
 
   return (
     <View style={styles.card}>
@@ -127,14 +128,25 @@ export default function ReservationCard(props: ReservationCardProps) {
           </Text>
           <Text>🍽️ Type:{props.reservation.restaurant_type}</Text>
 
-          <TouchableOpacity style={styles.button}>
-            
+
+         
+          {signedInVendor ? (
+            null
+          ) : 
+          (
+             <TouchableOpacity style={styles.button}>
             <Button title="Reserve" 
             onPress={() => handleReserve(props.reservation.id)}
             ></Button>
-
-
           </TouchableOpacity>
+          )
+          
+          }
+
+
+
+            
+           
 
           {signedInVendor ? (
             <TouchableOpacity style={styles.button}>
