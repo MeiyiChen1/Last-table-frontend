@@ -3,13 +3,11 @@ import { ScrollView, StyleSheet, Text } from "react-native";
 import UserProfileInfo from "../../components/user-profile-info";
 import UserProfileReservations from "../../components/user-profile-reservation";
 import { LogInContext, VendorLogInContext } from "@/Contexts";
-import { getUser, getReservationById} from "../../api";
+import { getUser, getVendorById, getReservationById} from "../../api";
 
 import { getReservations } from "@/api";
 import ReservationListWithRemove, { Reservation } from "@/components/reservation-list-with-remove";
 import RestaurantInfo from "@/components/restaurant-info";
-
-
 
 export default function Profile() {
 
@@ -27,6 +25,14 @@ export default function Profile() {
     icon_url: string,
     username: string,
     }
+
+    type Vendor = {
+      username: string,
+      icon_url: string,
+      telephone_number: string,
+      location_data: string,
+      restaurant_type: string
+    }
     
     const [user, setUser] = useState<User>({
         name: "test",
@@ -35,11 +41,22 @@ export default function Profile() {
         username: "test"
     })
 
+    const [vendor, setVendor] = useState<Vendor>({
+              username: "PaStation London",
+              icon_url: "test",
+              telephone_number: "07xxx 1x4140",
+              location_data: "76 Tottenham Ct Rd, London W1T 2HG",
+              restaurant_type: "Italian"
+          })
+
+
     const [reservations, setReservations] = useState<Reservation[]>([]);
 
     const logInContext = useContext(LogInContext);
     const { signedInUser, setSignedInUser } = logInContext;
 
+    const vendorLogInContext = useContext(VendorLogInContext)
+    const { signedInVendor, setSignedInVendor } = vendorLogInContext
 
     const styles = StyleSheet.create({
     container: { alignItems: "center", marginTop: 50, padding: 20 },
@@ -63,14 +80,6 @@ export default function Profile() {
       }, [signedInUser])
 
       // --------------------------------------------------------
-
-      const vendor = {
-              username: "PaStation London",
-              icon_url: "test",
-              telephone_number: "07xxx 1x4140",
-              location_data: "76 Tottenham Ct Rd, London W1T 2HG",
-              restaurant_type: "Italian"
-          }
           
     useEffect(() => {
           getReservations()
@@ -87,6 +96,18 @@ export default function Profile() {
         const handleRemove = (id: string) => {
         setReservations((prev) => prev.filter((r) => r.id !== id));
       };
+
+    useEffect(() => {
+      if (!signedInVendor) {
+        
+      } else {
+        getVendorById(signedInVendor)
+      .then(result => {
+        setVendor(result)
+      })
+      }
+    }, [signedInVendor])
+
 
 
     return (

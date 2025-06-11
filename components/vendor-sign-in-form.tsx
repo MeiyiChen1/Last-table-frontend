@@ -46,7 +46,7 @@ function VendorSignInForm({}) {
       const vendorMap = result.map((vendor: any) => {
         return {
           label: vendor.username,
-          value: vendor.username,
+          value: vendor.id,
           cuisine: vendor.restaurant_type,
         };
       });
