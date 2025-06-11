@@ -4,6 +4,8 @@ import { getReservationById } from "../api";
 import ReservationInfo from "../components/reservation-info";
 import { colours } from "../styles/colours";
 import { typography } from "../styles/typography";
+import { useRoute } from "@react-navigation/native";
+
 
 interface Reservation {
   time: string;
@@ -14,10 +16,14 @@ interface Reservation {
   telephone_number: string;
   //telephone number: need to update the backend to include it in the response
 }
-export default function ReservationDetails() {
-  //   const params = useRoute();
-  //   const { reservation_id } = params.params as { reservation_id: string };
-  const reservation_id = "2QYrxCS7eFFgfuvcsnUh";
+export default function ReservationDetails({ route }: { route: any }) {
+
+  //  const reservation_id = "2QYrxCS7eFFgfuvcsnUh";
+
+   const params = useRoute();
+  const { id: reservation_id } = params.params as { id: string };
+
+
   const [reservation, setReservation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +36,7 @@ export default function ReservationDetails() {
         setLoading(false);
       })
       .catch((err) => {
+        console.log(err)
         console.log("Failed to fetch reservation:", err);
         setError("Fail to load details");
         setLoading(false);

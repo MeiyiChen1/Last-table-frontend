@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRouter } from "expo-router";
 
+
 type Reservation = {
   id: string;
   time: string;
@@ -86,6 +87,12 @@ export default function ReservationCard(props: ReservationCardProps) {
   });
   //then create a conditional below that links to restaurants/{id} IF selectedVendorId != null
 
+  function handleReserve(id : any) {
+
+    router.push(`/reservation-details?id=${id}`)
+  }
+
+
   return (
     <View style={styles.card}>
       {!isDeleted ? (
@@ -101,7 +108,12 @@ export default function ReservationCard(props: ReservationCardProps) {
           <Text>🍽️ Type:{props.reservation.restaurant_type}</Text>
 
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Reserve</Text>
+            
+            <Button title="Reserve" 
+            onPress={() => handleReserve(props.reservation.id)}
+            ></Button>
+
+
           </TouchableOpacity>
 
           {signedInVendor ? (

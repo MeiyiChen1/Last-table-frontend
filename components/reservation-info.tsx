@@ -5,7 +5,7 @@ import { getVendorById } from "../api";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
-
+import { getVendorUsernameQuery } from "../api";
 
 interface Reservation {
   time: string;
@@ -26,13 +26,23 @@ interface Props {
 
 export default function ReservationInfo({ reservation }: Props) {
   const [vendor, setVendor] = useState<Vendor | null>(null);
+
+  console.log(reservation)
+
+// reservtation => name of restaurant => restaurant
+
   useEffect(() => {
-    if (reservation.restaurant_id) {
-      getVendorById(reservation.restaurant_id)
-        .then((data) => setVendor(data))
+
+    getVendorUsernameQuery(reservation.restaurant_name)
+        .then((data) => {
+          console.log(data.vendor)
+          setVendor(data.vendor)})
         .catch(() => Alert.alert("Failed to load restaurant contact info"));
-    }
-  }, [reservation.restaurant_id]);
+    
+
+
+
+  }, [reservation.restaurant_name]);
 
   const handleBooking = () => {
     Alert.alert("Booking Confirmed!", "Your reservation has been booked.");
