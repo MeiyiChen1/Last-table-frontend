@@ -63,7 +63,7 @@ const vendorLogInContext = useContext(VendorLogInContext);
         <View>
           {props.reservations.map((reservation) => {
             console.log(signedInVendor, reservation.restaurant_name);
-            console.log(vendor.username, reservation.restaurant_name, ".....")
+            console.log(vendor.username, reservation.restaurant_name, )
             if (
               signedInVendor &&
               vendor.username === reservation.restaurant_name
