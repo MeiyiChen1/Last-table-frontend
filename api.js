@@ -1,8 +1,12 @@
 import axios from "axios";
 
 const lastTableApi = axios.create({
-  baseURL: "https://last-table.onrender.com",
+  baseURL: "http://localhost:9090",
 });
+
+// const lastTableApi = axios.create({
+//   baseURL: "https://last-table.onrender.com",
+// });
 
 export const postUsers = (username, icon_url, email, name) => {
   return lastTableApi
@@ -82,6 +86,7 @@ export const postReservations = (
 export const postFavouritesByUserId = (id, restaurantObj) => {
   return lastTableApi
     .post(`/users/${id}/favourites`, {
+      id: restaurantObj.id,
       username: restaurantObj.username,
       icon_url: restaurantObj.icon_url,
       telephone_number: restaurantObj.telephone_number,
@@ -93,7 +98,7 @@ export const postFavouritesByUserId = (id, restaurantObj) => {
     });
 };
 
-export const deleteReservations = (id) => {
+export const deleteReservations = (user_id, vendor_id) => {
   return lastTableApi.delete(`/reservations/${id}`).then((res) => {
     return res;
   });
@@ -105,10 +110,12 @@ export const getFavouritesByUserId = (id) => {
   });
 };
 
-export const deleteFavouritesByUserId = (id) => {
-  return lastTableApi.delete(`/users/${id}/favourites`).then((res) => {
-    return res;
-  });
+export const deleteFavouritesByUserId = (userId, vendorId) => {
+  return lastTableApi
+    .delete(`/users/${userId}/favourites?vendor=${vendorId}`)
+    .then((res) => {
+      return res;
+    });
 };
 
 export const getUsers = () => {
