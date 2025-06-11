@@ -7,6 +7,7 @@ interface UserProfile {
   name: string;
   email: string;
   icon_url: string;
+  username: string;
 }
 
 interface Props {
@@ -17,6 +18,7 @@ export default function UserProfileInfo({ user }: Props) {
   return (
     <View style={styles.container}>
       <Image source={{ uri: user.icon_url }} style={styles.avatar} />
+      <Text style={styles.username}>{user.username}</Text>
       <Text style={styles.name}>{user.name}</Text>
       <Text style={styles.email}>{user.email}</Text>
     </View>
@@ -39,9 +41,14 @@ const styles = StyleSheet.create({
     borderColor: colours.border,
     marginBottom: typography.fontSizes.medium,
   },
-  name: {
+  username: {
     fontSize: typography.fontSizes.large,
     fontWeight: "bold",
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
+  },
+  name: {
+    fontSize: typography.fontSizes.large,
     color: colours.textPrimary,
     marginBottom: typography.fontSizes.small,
   },
