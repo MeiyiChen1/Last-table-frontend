@@ -1,9 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 // import { RestaurantProps } from "./restaurant-list";
 import { LogInContext } from "@/Contexts";
 import { Link } from "@react-navigation/native";
-import { getVendorById, postFavouritesByUserId } from "../api";
+import {
+  deleteFavouritesByUserId,
+  getVendorById,
+  postFavouritesByUserId,
+} from "../api";
 import { colours } from "../styles/colours";
 import { typography } from "../styles/typography";
 
@@ -52,14 +56,27 @@ function RestaurantCards(props: RestaurantProps) {
   const { signedInUser, setSignedInUser } = logInContext;
   console.log(signedInUser);
 
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [removeButtonClicked, setRemoveButtonClicked] = useState(false);
+
   function handleFavourite(id: string) {
+    setButtonClicked(true);
     getVendorById(id).then((result) => {
       console.log(result);
+
+      result.id = id;
+      console.log(result, "< with id added");
 
       postFavouritesByUserId(signedInUser, result).then((result) => {
         console.log(result);
       });
     });
+  }
+
+  function handleDeleteFavourite(signedInUser: any, vendorId: string) {
+    setButtonClicked(false);
+    setRemoveButtonClicked(true);
+    deleteFavouritesByUserId(signedInUser, props.id).then(() => {});
   }
 
   return (
@@ -72,18 +89,41 @@ function RestaurantCards(props: RestaurantProps) {
         </View>
       </Link>
 
-      <View style={styles.buttonWrapper}></View>
-
-      <Button
-        title="Favourite"
-        onPress={() => {
-          handleFavourite(props.id);
-        }}
-        color={colours.primaryGreen}
-      ></Button>
+      <View style={styles.buttonWrapper}>
+        {!buttonClicked ? (
+          removeButtonClicked ? (
+            <>
+              <Text>Removed from your favourites!</Text>
+              <Button
+                title="Favourite"
+                onPress={() => handleFavourite(props.id)}
+                color={colours.primaryGreen}
+              />
+            </>
+          ) : (
+            <>
+              <Button
+                title="Favourite"
+                onPress={() => handleFavourite(props.id)}
+                color={colours.primaryGreen}
+              />
+            </>
+          )
+        ) : (
+          <>
+            <Text>Added to your favourites!</Text>
+            <Button
+              title="Remove"
+              onPress={() => handleDeleteFavourite(signedInUser, props.id)}
+              color={colours.textPrimary}
+            />
+          </>
+        )}
+      </View>
     </View>
   );
 }
+
 export default RestaurantCards;
 
 const styles = StyleSheet.create({
