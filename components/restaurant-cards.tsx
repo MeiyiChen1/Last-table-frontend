@@ -76,6 +76,7 @@ function RestaurantCards(props: RestaurantProps) {
         onPress={() => {
           handleFavourite(props.id);
         }}
+        color={colours.primaryGreen}
       ></Button>
     </View>
   );
