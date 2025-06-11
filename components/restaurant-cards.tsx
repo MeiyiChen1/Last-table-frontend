@@ -1,11 +1,9 @@
-import { useContext } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { useState, useEffect, useContext } from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 // import { RestaurantProps } from "./restaurant-list";
-import { LogInContext } from "@/Contexts";
+import { postFavouritesByUserId, getVendors, getVendorById } from "../api";
 import { Link } from "@react-navigation/native";
-import { getVendorById, postFavouritesByUserId } from "../api";
-import { colours } from "../styles/colours";
-import { typography } from "../styles/typography";
+import { LogInContext } from "@/Contexts";
 
 export type RestaurantProps = {
   icon_url: string;
@@ -16,6 +14,25 @@ export type RestaurantProps = {
   location_data: string;
 };
 
+const styles = StyleSheet.create({
+  div: {
+    marginTop: 50,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "black",
+    borderRadius: 3,
+  },
+  container: {
+    flex: 1,
+
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "black",
+    borderRadius: 3,
+  },
+});
 
 //we need to implement this functionality after we have created some useState for the user.
 
@@ -38,56 +55,21 @@ function RestaurantCards(props: RestaurantProps) {
   }
 
   return (
-    <View style={styles.card}>
+    <View style={styles.container}>
       <Link screen="restaurant-details" params={{ id: props.id }}>
-        <View style={styles.detailsBox}>
-          <Text style={styles.icon}>{props.icon_url}</Text>
-          <Text style={styles.username}>{props.username}</Text>
-          <Text style={styles.restaurantType}>{props.restaurant_type}</Text>
+        <View style={styles.div}>
+          <Text>{props.icon_url}</Text>
+          <Text>{props.username}</Text>
+          <Text>{props.restaurant_type}</Text>
         </View>
       </Link>
-      <View style={styles.buttonWrapper}>
-        <Button
-          title="Favourite"
-          onPress={() => handleFavourite(props.id)}
-          color={colours.primaryGreen}
-        />
-      </View>
+      <Button
+        title="Favourite"
+        onPress={() => {
+          handleFavourite(props.id);
+        }}
+      ></Button>
     </View>
   );
 }
 export default RestaurantCards;
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: colours.lightGreen,
-    borderRadius: 12,
-    padding: typography.fontSizes.large,
-    marginVertical: typography.fontSizes.medium,
-    alignItems: "center",
-  },
-  detailsBox: {
-    width: "100%",
-    alignItems: "center",
-    marginBottom: typography.fontSizes.medium,
-  },
-  icon: {
-    fontSize: typography.fontSizes.xLarge,
-    color: colours.textPrimary,
-    marginBottom: typography.fontSizes.small,
-  },
-  username: {
-    fontSize: typography.fontSizes.large,
-    fontWeight: "bold",
-    color: colours.textPrimary,
-    marginBottom: typography.fontSizes.small,
-  },
-  restaurantType: {
-    fontSize: typography.fontSizes.medium,
-    color: colours.textSecondary,
-  },
-  buttonWrapper: {
-    width: "100%",
-    marginTop: typography.fontSizes.medium,
-  },
-});
