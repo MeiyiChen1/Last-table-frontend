@@ -1,12 +1,42 @@
 import * as Linking from "expo-linking";
 import React, { useEffect, useState } from "react";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
-import { getVendorById } from "../api";
+import { getVendorUsernameQuery } from "../api";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
-import { getVendorUsernameQuery } from "../api";
 
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    alignItems: "center",
+    padding: typography.fontSizes.large,
+    backgroundColor: colours.white,
+    borderRadius: 12,
+    marginTop: typography.fontSizes.large,
+    ...commonStyles.cardShadow,
+  },
+  info: {
+    fontSize: typography.fontSizes.medium,
+    color: colours.textPrimary,
+    marginBottom: typography.fontSizes.small,
+    textAlign: "center",
+  },
+  label: {
+    fontWeight: "bold",
+    color: colours.textSecondary,
+  },
+  buttonContainer: {
+    marginTop: typography.fontSizes.large,
+    width: "100%",
+  },
+  map: {
+    width: "100%",
+    height: 200,
+    marginTop: typography.fontSizes.medium,
+    borderRadius: 10,
+  },
+});
 interface Reservation {
   time: string;
   available_seats: number;
@@ -27,21 +57,17 @@ interface Props {
 export default function ReservationInfo({ reservation }: Props) {
   const [vendor, setVendor] = useState<Vendor | null>(null);
 
-  console.log(reservation)
+  console.log(reservation);
 
-// reservtation => name of restaurant => restaurant
+  // reservtation => name of restaurant => restaurant
 
   useEffect(() => {
-
     getVendorUsernameQuery(reservation.restaurant_name)
-        .then((data) => {
-          console.log(data.vendor)
-          setVendor(data.vendor)})
-        .catch(() => Alert.alert("Failed to load restaurant contact info"));
-    
-
-
-
+      .then((data) => {
+        console.log(data.vendor);
+        setVendor(data.vendor);
+      })
+      .catch(() => Alert.alert("Failed to load restaurant contact info"));
   }, [reservation.restaurant_name]);
 
   const handleBooking = () => {
@@ -76,60 +102,11 @@ export default function ReservationInfo({ reservation }: Props) {
       <Text style={styles.info}>
         <Text style={styles.label}>Seats:</Text> {reservation.available_seats}
       </Text>
-
       <View style={styles.buttonContainer}>
         <Button title="Book Now" onPress={handleBooking} />
         <View style={{ height: 10 }} />
         <Button title="Call Restaurant" onPress={handleCall} />
       </View>
-
-      <Text style={[styles.label, { marginTop: 20 }]}>Location:</Text>
-      {/* <MapView
-        style={styles.map}
-        region={{
-          latitude: latitude || 0,
-          longitude: longitude || 0,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
-      >
-        <Marker
-          coordinate={{ latitude, longitude }}
-          title={reservation.restaurant_name}
-        />
-      </MapView> */}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    alignItems: "center",
-    padding: typography.fontSizes.large,
-    backgroundColor: colours.white,
-    borderRadius: 12,
-    marginTop: typography.fontSizes.large,
-    ...commonStyles.cardShadow,
-  },
-  info: {
-    fontSize: typography.fontSizes.medium,
-    color: colours.textPrimary,
-    marginBottom: typography.fontSizes.small,
-    textAlign: "center",
-  },
-  label: {
-    fontWeight: "bold",
-    color: colours.textSecondary,
-  },
-  buttonContainer: {
-    marginTop: typography.fontSizes.large,
-    width: "100%",
-  },
-  map: {
-    width: "100%",
-    height: 200,
-    marginTop: typography.fontSizes.medium,
-    borderRadius: 10,
-  },
-});
