@@ -14,9 +14,6 @@ function VendorSignInPage() {
   return (
     <View>
       <VendorSignInForm />
-      <Link screen="reservations" params={{}}>
-        <Button title="Go to Reservations"></Button>
-      </Link>
     </View>
   );
 }

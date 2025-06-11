@@ -7,6 +7,8 @@ import { getVendors } from "../api";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
+import { useRouter } from 'expo-router';
+
 
 //setLoading state
 
@@ -46,13 +48,15 @@ function VendorSignInForm({}) {
       const vendorMap = result.map((vendor: any) => {
         return {
           label: vendor.username,
-          value: vendor.username,
+          value: vendor.id,
           cuisine: vendor.restaurant_type,
         };
       });
       setItems(vendorMap);
     });
   }, []);
+
+  const router = useRouter()
 
   useEffect(() => {
     setSignedInVendor(value);
@@ -61,6 +65,7 @@ function VendorSignInForm({}) {
       if (selectedVendor) {
         setSignedInVendorType(selectedVendor.cuisine);
       }
+      router.navigate("/(tabs)/reservations")
     }
   }, [value, items]);
 
@@ -85,7 +90,6 @@ function VendorSignInForm({}) {
         <Link screen="restaurant-signup" params={{}}>
           <Text style={styles.linkText}>Or Create an Account:</Text>
         </Link>
-        <Button title="Sign Out" onPress={handleLogOut}></Button>
         {/* <Button title="Submit" onPress={handleSubmit}></Button> */}
       </View>
     </>

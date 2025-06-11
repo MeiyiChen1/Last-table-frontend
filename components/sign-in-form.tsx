@@ -7,6 +7,8 @@ import { getUsers } from "../api";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
+import { useRouter } from 'expo-router';
+
 
 
 function SignInForm({}) {
@@ -39,9 +41,11 @@ function SignInForm({}) {
     });
   }, []);
 
+
   useEffect(() => {
     setSignedInUser(value);
   }, [value, setSignedInUser]);
+
 
   console.log(signedInUser);
 
@@ -50,8 +54,18 @@ function SignInForm({}) {
   }
 
 
+  const router = useRouter()
+
+  function handleChange() {
+    setSignedInUser(value);
+    if (value) {
+      router.navigate("/(tabs)/reservations")
+    }
+  }
+
 
   return (
+
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
         <View style={[styles.container, commonStyles.cardShadow]}>
@@ -70,6 +84,8 @@ function SignInForm({}) {
             dropDownContainerStyle={styles.dropdownContainer}
             zIndex={3000}
             zIndexInverse={1000}
+
+    <>
         />
         
         <Link screen="user-signup-page" params={{}}>
@@ -90,8 +106,14 @@ function SignInForm({}) {
       </TouchableOpacity>
       
       </View>
+
       </ScrollView>
     </View>
+
+
+      
+    </>
+
   );
 }
 

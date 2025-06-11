@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Image, StyleSheet, Text, View } from "react-native";
 // import { RestaurantProps } from "./restaurant-list";
 import { LogInContext } from "@/Contexts";
 import { Link } from "@react-navigation/native";
@@ -16,6 +16,31 @@ export type RestaurantProps = {
   location_data: string;
 };
 
+// const styles = StyleSheet.create({
+//   div: {
+//     marginTop: 50,
+//     borderWidth: 1,
+//     borderStyle: "solid",
+//     borderColor: "black",
+//     borderRadius: 3,
+//   },
+//   container: {
+//     flex: 1,
+
+//     alignItems: "center",
+//     justifyContent: "center",
+//     borderWidth: 1,
+//     borderStyle: "solid",
+//     borderColor: "black",
+//     borderRadius: 3,
+//   },
+//   image: {
+//     width: 200,
+//     height: 200,
+//     borderRadius: 10,
+//     resizeMode: "cover",
+//   },
+// });
 
 //we need to implement this functionality after we have created some useState for the user.
 
@@ -41,11 +66,12 @@ function RestaurantCards(props: RestaurantProps) {
     <View style={styles.card}>
       <Link screen="restaurant-details" params={{ id: props.id }}>
         <View style={styles.detailsBox}>
-          <Text style={styles.icon}>{props.icon_url}</Text>
+          <Image source={{ uri: props.icon_url }} style={styles.image} />
           <Text style={styles.username}>{props.username}</Text>
           <Text style={styles.restaurantType}>{props.restaurant_type}</Text>
         </View>
       </Link>
+
       <View style={styles.buttonWrapper}>
         
         <Button
@@ -54,6 +80,15 @@ function RestaurantCards(props: RestaurantProps) {
           color={colours.primaryGreen}
         />
       </View>
+
+      <Button
+        title="Favourite"
+        onPress={() => {
+          handleFavourite(props.id);
+        }}
+        color={colours.primaryGreen}
+      ></Button>
+
     </View>
   );
 }
@@ -90,5 +125,11 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     width: "100%",
     marginTop: typography.fontSizes.medium,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 10,
+    resizeMode: "cover",
   },
 });
