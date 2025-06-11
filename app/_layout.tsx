@@ -4,6 +4,8 @@ import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import Tabs from "expo-router";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Text } from "react-native";
+import LoginStatus from "@/components/login-status";
 
 
 export default function RootLayout() {
@@ -79,6 +81,8 @@ export default function RootLayout() {
       }}
     >
       <LogInContext.Provider value={{ signedInUser, setSignedInUser }}>
+
+          <LoginStatus />
 
           <Stack>
 
