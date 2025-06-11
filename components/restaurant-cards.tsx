@@ -71,6 +71,16 @@ function RestaurantCards(props: RestaurantProps) {
           <Text style={styles.restaurantType}>{props.restaurant_type}</Text>
         </View>
       </Link>
+
+      <View style={styles.buttonWrapper}>
+        
+        <Button
+          title="Favourite"
+          onPress={() => handleFavourite(props.id)}
+          color={colours.primaryGreen}
+        />
+      </View>
+
       <Button
         title="Favourite"
         onPress={() => {
@@ -78,6 +88,7 @@ function RestaurantCards(props: RestaurantProps) {
         }}
         color={colours.primaryGreen}
       ></Button>
+
     </View>
   );
 }
@@ -98,13 +109,13 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: typography.fontSizes.xLarge,
-    color: colours.textPrimary,
+    color: colours.primaryGreen,
     marginBottom: typography.fontSizes.small,
   },
   username: {
     fontSize: typography.fontSizes.large,
     fontWeight: "bold",
-    color: colours.textPrimary,
+    color: colours.primaryGreen,
     marginBottom: typography.fontSizes.small,
   },
   restaurantType: {
