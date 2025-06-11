@@ -5,6 +5,9 @@ import ReservationList from "@/components/reservation-list";
 import { useEffect, useState, useContext } from "react";
 import { getReservations } from "@/api";
 import { VendorLogInContext } from "@/Contexts";
+import ReservationSearch from "@/components/reservation-search";
+
+
 
 function Reservations() {
   const vendorLogInContext = useContext(VendorLogInContext);
@@ -45,7 +48,12 @@ function Reservations() {
   return (
     <View style={{ flex: 1, padding: 20 }}>
       <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reservations</Text>
-      <SearchComponent setReservations={setReservations}/>
+      {signedInVendor ? (
+        null 
+      ) : (
+        <SearchComponent setReservations={setReservations}/>
+      )}
+
       <ReservationList reservations={reservations} />
       {signedInVendor ? <ReservationForm /> : null}
     </View>
@@ -53,3 +61,6 @@ function Reservations() {
 }
 
 export default Reservations;
+
+
+//
