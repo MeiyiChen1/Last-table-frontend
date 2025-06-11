@@ -80,45 +80,47 @@ function RestaurantCards(props: RestaurantProps) {
   }
 
   return (
-    <View style={styles.card}>
-      <Link screen="restaurant-details" params={{ id: props.id }}>
-        <View style={styles.detailsBox}>
-          <Image source={{ uri: props.icon_url }} style={styles.image} />
-          <Text style={styles.username}>{props.username}</Text>
-          <Text style={styles.restaurantType}>{props.restaurant_type}</Text>
-        </View>
-      </Link>
+    <View style={styles.buttonWrapper}>
+      <View style={styles.card}>
+        <Link screen="restaurant-details" params={{ id: props.id }}>
+          <View style={styles.detailsBox}>
+            <Image source={{ uri: props.icon_url }} style={styles.image} />
+            <Text style={styles.username}>{props.username}</Text>
+            <Text style={styles.restaurantType}>{props.restaurant_type}</Text>
+          </View>
+        </Link>
 
-      <View style={styles.buttonWrapper}>
-        {!buttonClicked ? (
-          removeButtonClicked ? (
-            <>
-              <Text>Removed from your favourites!</Text>
-              <Button
-                title="Favourite"
-                onPress={() => handleFavourite(props.id)}
-                color={colours.primaryGreen}
-              />
-            </>
+        <View style={styles.buttonWrapper}>
+          {!buttonClicked ? (
+            removeButtonClicked ? (
+              <>
+                <Text>Removed from your favourites!</Text>
+                <Button
+                  title="Favourite"
+                  onPress={() => handleFavourite(props.id)}
+                  color={colours.primaryGreen}
+                />
+              </>
+            ) : (
+              <>
+                <Button
+                  title="Favourite"
+                  onPress={() => handleFavourite(props.id)}
+                  color={colours.primaryGreen}
+                />
+              </>
+            )
           ) : (
             <>
+              <Text>Added to your favourites!</Text>
               <Button
-                title="Favourite"
-                onPress={() => handleFavourite(props.id)}
-                color={colours.primaryGreen}
+                title="Remove"
+                onPress={() => handleDeleteFavourite(signedInUser, props.id)}
+                color={colours.textPrimary}
               />
             </>
-          )
-        ) : (
-          <>
-            <Text>Added to your favourites!</Text>
-            <Button
-              title="Remove"
-              onPress={() => handleDeleteFavourite(signedInUser, props.id)}
-              color={colours.textPrimary}
-            />
-          </>
-        )}
+          )}
+        </View>
       </View>
     </View>
   );
