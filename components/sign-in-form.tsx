@@ -62,6 +62,7 @@ function SignInForm({}) {
     <>
       <View style={{ flex: 1 }}>
         <ScrollView
+          nestedScrollEnabled={true}
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="handled"
         >
@@ -69,6 +70,7 @@ function SignInForm({}) {
             <Text style={styles.heading}>Sign In</Text>
             <Text>Select your username:</Text>
             <DropDownPicker
+              listMode="SCROLLVIEW"
               open={open}
               value={value}
               items={items}
