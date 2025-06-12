@@ -43,12 +43,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   reserveButton: {
-    fontSize: typography.fontSizes.large,
+    fontSize: typography.fontSizes.small,
     fontWeight: "bold",
     color: colours.white, // ✅ GREEN
-    marginBottom: typography.fontSizes.small,
-    flex: 1,
-    paddingTop: 10
+    textAlign: "center",
+
   },
   button: {
     marginTop: 10,
@@ -149,12 +148,6 @@ export default function ReservationCard(props: ReservationCardProps) {
           )
           
           }
-
-
-
-            
-           
-
           {signedInVendor ? (
             <TouchableOpacity style={styles.button}
             onPress={() => {
