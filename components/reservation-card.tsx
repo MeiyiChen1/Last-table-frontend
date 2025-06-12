@@ -42,6 +42,14 @@ const styles = StyleSheet.create({
     color: colours.textSecondary,
     textAlign: "center",
   },
+  reserveButton: {
+    fontSize: typography.fontSizes.large,
+    fontWeight: "bold",
+    color: colours.white, // ✅ GREEN
+    marginBottom: typography.fontSizes.small,
+    flex: 1,
+    paddingTop: 10
+  },
   button: {
     marginTop: 10,
     backgroundColor: colours.primaryGreen,
@@ -134,10 +142,9 @@ export default function ReservationCard(props: ReservationCardProps) {
             null
           ) : 
           (
-             <TouchableOpacity style={styles.button}>
-            <Button title="Reserve" 
-            onPress={() => handleReserve(props.reservation.id)}
-            ></Button>
+             <TouchableOpacity style={styles.button}
+              onPress={() => handleReserve(props.reservation.id)}
+             > <Text style={styles.reserveButton} > Reserve</Text>
           </TouchableOpacity>
           )
           
@@ -149,13 +156,11 @@ export default function ReservationCard(props: ReservationCardProps) {
            
 
           {signedInVendor ? (
-            <TouchableOpacity style={styles.button}>
-              <Button
-                title="Remove Reservation"
-                onPress={() => {
+            <TouchableOpacity style={styles.button}
+            onPress={() => {
                   handleDelete(props.reservation.id);
                 }}
-              ></Button>
+            > <Text style={styles.reserveButton}>Remove Reservation</Text>       
             </TouchableOpacity>
           ) : null}
         </View>
