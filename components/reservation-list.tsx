@@ -50,11 +50,11 @@ const vendorLogInContext = useContext(VendorLogInContext);
       setVendor(result)
       console.log(result)
     })
-  }, [])
+  }, [signedInVendor])
 
 
-  console.log(vendor, "vendor")
-
+  //console.log(vendor, "vendor")
+  console.log(props.reservations)
 
   //have linked with the restaurant name, can maybe think about changing this to the ID in future
   return (
