@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const lastTableApi = axios.create({
-  baseURL: "http://localhost:9090",
-});
-
 // const lastTableApi = axios.create({
-//   baseURL: "https://last-table.onrender.com",
+//   baseURL: "http://localhost:9090",
 // });
+
+const lastTableApi = axios.create({
+  baseURL: "https://last-table.onrender.com",
+});
 
 export const postUsers = (username, icon_url, email, name) => {
   return lastTableApi
@@ -98,7 +98,7 @@ export const postFavouritesByUserId = (id, restaurantObj) => {
     });
 };
 
-export const deleteReservations = (user_id, vendor_id) => {
+export const deleteReservations = (id) => {
   return lastTableApi.delete(`/reservations/${id}`).then((res) => {
     return res;
   });
