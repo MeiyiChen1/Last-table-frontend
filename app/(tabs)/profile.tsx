@@ -24,6 +24,7 @@ export default function Profile() {
     email: string,
     icon_url: string,
     username: string,
+    favourites: Vendor[]
     }
 
     type Vendor = {
@@ -38,7 +39,14 @@ export default function Profile() {
         name: "test",
         email: "test",
         icon_url: "test",
-        username: "test"
+        username: "test",
+        favourites: [{
+              username: "PaStation London",
+              icon_url: "test",
+              telephone_number: "07xxx 1x4140",
+              location_data: "76 Tottenham Ct Rd, London W1T 2HG",
+              restaurant_type: "Italian"
+          }]
     })
 
     const [vendor, setVendor] = useState<Vendor>({
@@ -51,6 +59,7 @@ export default function Profile() {
 
 
     const [reservations, setReservations] = useState<Reservation[]>([]);
+    const [favourites, setFavourites] = useState<Vendor[]>([])
 
     const logInContext = useContext(LogInContext);
     const { signedInUser, setSignedInUser } = logInContext;
@@ -110,13 +119,23 @@ export default function Profile() {
 
 
 
+
+
+    useEffect(() => {
+      setFavourites(user.favourites)
+    }, [user.favourites])
+
     return (
         <>
         {signedInUser ? (
         <>
         <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>User Profile</Text>
-        <UserProfileInfo user={user} />
+        <UserProfileInfo 
+        user={user}
+        favourites={favourites}
+         
+        />
         <UserProfileReservations reservations={reservations} />
         </ScrollView>
         </>

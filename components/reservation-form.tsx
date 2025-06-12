@@ -1,10 +1,11 @@
 import { postReservations } from "@/api";
 import { VendorLogInContext } from "@/Contexts";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
+import { getVendorById } from "@/api";
 
 export default function ReservationForm() {
   const [time, setTime] = useState("");
@@ -16,6 +17,33 @@ export default function ReservationForm() {
     return <Text>hi</Text>;
   }
 
+  type Vendor = {
+      username: string,
+      icon_url: string,
+      telephone_number: string,
+      location_data: string,
+      restaurant_type: string
+    }
+
+  const [vendor, setVendor] = useState<Vendor>({
+                username: "PaStation London",
+                icon_url: "test",
+                telephone_number: "07xxx 1x4140",
+                location_data: "76 Tottenham Ct Rd, London W1T 2HG",
+                restaurant_type: "Italian"
+            })
+
+   useEffect(() => {
+      getVendorById(signedInVendor)
+      .then(result => {
+        setVendor(result)
+        console.log(result)
+      })
+    }, [])
+  
+
+
+
   const { signedInVendor, setSignedInVendor, signedInVendorType } =
     vendorLogInContext;
 
@@ -24,7 +52,7 @@ export default function ReservationForm() {
       await postReservations(
         time,
         Number(availableSeats),
-        signedInVendor,
+        vendor.username,
         signedInVendorType
       );
       alert("Reservation submitted successfully!");

@@ -8,19 +8,40 @@ interface UserProfile {
   email: string;
   icon_url: string;
   username: string;
+  favourites: Vendor[]
 }
+
+type Vendor = {
+      username: string,
+      icon_url: string,
+      telephone_number: string,
+      location_data: string,
+      restaurant_type: string
+    }
+
+
+
 
 interface Props {
   user: UserProfile;
+  favourites: Vendor[]
 }
 
-export default function UserProfileInfo({ user }: Props) {
+
+
+
+
+export default function UserProfileInfo({ user, favourites}: Props) {
   return (
     <View style={styles.container}>
       <Image source={{ uri: user.icon_url }} style={styles.avatar} />
       <Text style={styles.username}>{user.username}</Text>
       <Text style={styles.name}>{user.name}</Text>
       <Text style={styles.email}>{user.email}</Text>
+      <Text style={styles.username}>My favourites:</Text>
+      {favourites.map(restaurant => {
+        return <Text>{restaurant.username}</Text>
+      })}
     </View>
   );
 }
