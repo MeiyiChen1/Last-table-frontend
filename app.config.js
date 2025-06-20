@@ -1,4 +1,6 @@
-{
+import "dotenv/config";
+
+export default {
   "expo": {
     "name": "Last-table-frontend",
     "slug": "Last-table-frontend",
@@ -10,20 +12,20 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.Lasttablefrontend"
+      "bundleIdentifier": "com.anonymous.Lasttablefrontend",
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.Lasttablefrontend"
+      "package": "com.anonymous.Lasttablefrontend",
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
     },
     "plugins": [
       "expo-router",
@@ -33,12 +35,20 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ]
+          "backgroundColor": "#ffffff",
+        },
+      ],
     ],
     "experiments": {
-      "typedRoutes": true
-    }
-  }
-}
+      "typedRoutes": true,
+    },
+    "extra": {
+      firebaseApiKey: process.env.FIREBASE_API_KEY,
+      firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
+      firebaseProjectId: process.env.FIREBASE_PROJECT_ID,
+      firebaseStorageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+      firebaseMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+      firebaseAppId: process.env.FIREBASE_APP_ID,
+    },
+  },
+};

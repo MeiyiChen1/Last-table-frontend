@@ -2,12 +2,21 @@ import { LogInContext } from "@/Contexts";
 import { Link, useNavigation } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { useContext, useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Button,
+} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { getUsers } from "../api";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
+import { auth } from "@/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function SignInForm({}) {
   const navigation = useNavigation();
@@ -15,49 +24,26 @@ function SignInForm({}) {
   //loggedInUser state
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
   const [items, setItems] = useState<{ label: string; value: string }[]>([]);
+  const [err, setErr] = useState(false);
 
-  const logInContext = useContext(LogInContext);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
-  if (!logInContext) {
-    return <Text>hi</Text>;
-  }
-
-  const { signedInUser, setSignedInUser } = logInContext;
-
-  useEffect(() => {
-    getUsers().then((result) => {
-      console.log(result);
-      const userMap = result.users.map((user: any) => {
-        return {
-          label: user.username,
-          value: user.id,
-        };
-      });
-      setItems(userMap);
-    });
-  }, []);
-
-  useEffect(() => {
-    setSignedInUser(value);
-  }, [value, setSignedInUser]);
-
-  console.log(signedInUser);
-
-  function handleLogOut() {
-    setSignedInUser(null);
-  }
-
-  const router = useRouter();
-
-  function handleChange() {
-    setSignedInUser(value);
-    if (value) {
-      router.navigate("/(tabs)/reservations");
+  const loginFunction = async (loginEmail: string, loginPassword: string) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log(userCredential);
+    } catch {
+      setErr(true);
     }
-  }
-
+  };
   return (
     <>
       <View style={{ flex: 1 }}>
@@ -68,24 +54,26 @@ function SignInForm({}) {
         >
           <View style={[styles.container, commonStyles.cardShadow]}>
             <Text style={styles.heading}>Sign In</Text>
-            <Text>Select your username:</Text>
-            <DropDownPicker
-              listMode="SCROLLVIEW"
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-              dropDownDirection="BOTTOM"
-              style={styles.dropdown}
-              textStyle={styles.dropdownText}
-              dropDownContainerStyle={styles.dropdownContainer}
-              zIndex={3000}
-              zIndexInverse={1000}
-              onChangeValue={handleChange}
-            />
 
+            <Text style={styles.label}>Email:</Text>
+            <TextInput
+              // style={styles.input}
+              value={emailValue}
+              onChangeText={setEmailValue}
+            />
+            <Text style={styles.label}>Password:</Text>
+            <TextInput
+              // style={styles.input}
+              value={passwordValue}
+              onChangeText={setPasswordValue}
+            />
+            <Button
+              title="Log In"
+              onPress={async () => {
+                await loginFunction(emailValue, passwordValue);
+              }}
+            />
+            {err ? <Text>Invalid email and/or password</Text> : null}
             <Link screen="user-signup-page" params={{}}>
               <Text style={styles.linkText}>Or Create an Account:</Text>
             </Link>
