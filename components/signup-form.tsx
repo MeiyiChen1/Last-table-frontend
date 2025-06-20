@@ -4,33 +4,64 @@ import { postUsers } from "../api";
 import { colours } from "../styles/colours";
 import { commonStyles } from "../styles/commonStyles";
 import { typography } from "../styles/typography";
-
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase";
 
 function SignUpForm() {
   const [username, setUsername] = useState("");
   const [icon_url, setIconUrl] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [err, setErr] = useState(false);
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
-    postUsers(username, icon_url, email, name)
-      .then(() => {
-        alert("Account created successfully!");
-      })
-      .catch((error) => {
-        console.error(
-          "Error creating account:",
-          error.response?.data || error.message
-        );
-        alert("Failed to create account.");
-      });
+  const createAccount = async (email: string, password: string) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(userCredential);
+    } catch {
+      setErr(true);
+    }
+  };
+
+  const handleSubmit = async (
+    email: string,
+    password: string
+    // username: string,
+    // icon_url: string,
+    // name: string
+  ) => {
+    console.log(email, password);
+    try {
+      await createAccount(email, password);
+      // await postUsers(username, icon_url, email, name);
+
+      alert("Account created successfully!");
+    } catch {
+      console.error("Error creating account:");
+      alert("Failed to create account.");
+    }
   };
 
   return (
     <View style={[styles.container, commonStyles.cardShadow]}>
       <Text style={styles.heading}>Make an Account</Text>
 
-      <Text style={styles.label}>Username:</Text>
+      <Text style={styles.label}>Email:</Text>
+      <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+
+      <Text style={styles.label}>Password:</Text>
+      <TextInput
+        style={styles.input}
+        value={password}
+        onChangeText={setPassword}
+      />
+
+      <Text style={styles.label}>Create a Username:</Text>
       <TextInput
         style={styles.input}
         value={username}
@@ -44,14 +75,16 @@ function SignUpForm() {
         onChangeText={setIconUrl}
       />
 
-      <Text style={styles.label}>Email:</Text>
-      <TextInput style={styles.input} value={email} onChangeText={setEmail} />
-
-      <Text style={styles.label}>Name:</Text>
+      <Text style={styles.label}>Your Name:</Text>
       <TextInput style={styles.input} value={name} onChangeText={setName} />
 
       <Text>Submit your details to create an account</Text>
-      <Button title="Submit" onPress={handleSubmit} />
+      <Button
+        title="Submitttttttttttttttttttttttttt"
+        onPress={() => {
+          handleSubmit(email, password);
+        }}
+      />
     </View>
   );
 }
