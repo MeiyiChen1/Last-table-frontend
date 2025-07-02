@@ -37,3 +37,8 @@ Planned and delivered the app using Agile methodology, collaborating in daily st
    ```bash
    npx expo start
    ```
+3. Viewing the app
+
+Best Viewing experience: Download the expoGO app and scan the QR code in the terminal.
+Or
+Press W to view in web browser.
