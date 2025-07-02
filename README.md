@@ -1,6 +1,6 @@
 # Welcome to Last Table 👋
 
-project details: https://www.northcoders.com/blog/last-table/
+project details(with demo video): https://www.northcoders.com/blog/last-table/
 
 full-stack mobile application that connects spontaneous diners with restaurants looking to fill last-minute cancellations. Built by the team TypeScript Titans, the app provides a win-win platform for users seeking last-minute reservations and restaurants aiming to maximise occupancy.
 
